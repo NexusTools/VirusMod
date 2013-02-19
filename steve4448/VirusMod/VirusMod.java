@@ -56,7 +56,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
 public class VirusMod {
 	public static final int TEXTURE_VIRUS_EATER = 0;
-	@MLProp(name = "blockEaterVirus", min = 125, max = 4096)
 	public static int blockEaterVirusID;
 	
 	public static Block blockEaterVirus;
@@ -65,7 +64,7 @@ public class VirusMod {
 	public void preload(FMLPreInitializationEvent iEvent) {
 	    Configuration conf = new Configuration(iEvent.getSuggestedConfigurationFile());
 	    conf.load();
-	    blockEaterVirusID = conf.getBlock("blockEaterVirusID", 204).getInt();
+	    blockEaterVirusID = conf.getBlock("blockEaterVirusID", 450).getInt();
 	    conf.save();
 	}
 	

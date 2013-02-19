@@ -72,10 +72,10 @@ public class ExpandedTNT {
 	    blockTNTTNTEnabled = conf.get("Enabled Blocks", "blockTNTTNTEnabled", true).getBoolean(true);
 	    blockTNTTNTTNTEnabled = conf.get("Enabled Blocks", "blockTNTTNTTNTEnabled", true).getBoolean(true);
 	    
-	    blockArrowsTNTID = conf.getBlock("blockArrowsTNTID", 200).getInt();
-	    blockEggTNTID = conf.getBlock("blockEggTNTID", 201).getInt();
-	    blockTNTTNTID = conf.getBlock("blockTNTTNTID", 202).getInt();
-	    blockTNTTNTNTTID = conf.getBlock("blockTNTTNTNTTID", 203).getInt();
+	    blockArrowsTNTID = conf.getBlock("blockArrowsTNTID", 408).getInt();
+	    blockEggTNTID = conf.getBlock("blockEggTNTID", 409).getInt();
+	    blockTNTTNTID = conf.getBlock("blockTNTTNTID", 410).getInt();
+	    blockTNTTNTNTTID = conf.getBlock("blockTNTTNTNTTID", 411).getInt();
 	    conf.save();
 	}
 	
