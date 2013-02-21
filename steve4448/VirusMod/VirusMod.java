@@ -57,6 +57,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class VirusMod {
 	public static final int TEXTURE_VIRUS_EATER = 0;
 	public static int blockEaterVirusID;
+	public static int[] uneatable;
+	public static boolean useBlockResistance;
 	
 	public static Block blockEaterVirus;
 	
@@ -65,6 +67,8 @@ public class VirusMod {
 	    Configuration conf = new Configuration(iEvent.getSuggestedConfigurationFile());
 	    conf.load();
 	    blockEaterVirusID = conf.getBlock("blockEaterVirusID", 450).getInt();
+	    uneatable = conf.get("Eater Virus", "uneatable", new int[]{0, Block.obsidian.blockID}, "Blocks that are not to be \"aten\" by the eater virus.").getIntList();
+	    useBlockResistance = conf.get("Eater Virus", "useBlockResistance", true, "The virus will degrade more based on the blocks it destroys.").getBoolean(true);
 	    conf.save();
 	}
 	
@@ -76,7 +80,5 @@ public class VirusMod {
 		GameRegistry.registerBlock(blockEaterVirus, "Eater Virus");
 		
 		LanguageRegistry.addName(blockEaterVirus, "Eater Virus");
-		
-		GameRegistry.registerTileEntity(TileEntityVirusController.class, "virusController");
 	}
 }
