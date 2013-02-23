@@ -52,7 +52,7 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-@Mod(modid = "VirusMod", name = "Virus Mod", version = "0.2") 
+@Mod(modid = "VirusMod", name = "Virus Mod", version = "0.2.1") 
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
 public class VirusMod {
 	public static final int TEXTURE_VIRUS_EATER = 0;
@@ -63,6 +63,7 @@ public class VirusMod {
 	public static int eaterStrengthMin;
 	public static int eaterStrengthMax;
 	public static int eaterTickRate;
+	public static int eaterIterationsPerTick;
 	public static double eaterDegradation;
 	
 	public static Block blockEaterVirusController;
@@ -79,6 +80,7 @@ public class VirusMod {
 	    eaterStrengthMin = conf.get("Eater Virus", "eaterStrengthMin", 400).getInt();
 	    eaterStrengthMax = conf.get("Eater Virus", "eaterStrengthMax", 1000).getInt();
 	    eaterTickRate = conf.get("Eater Virus", "eaterTickRate", 1).getInt();
+	    eaterIterationsPerTick = conf.get("Eater Virus", "eaterIterationsPerTick", 5).getInt();
 	    eaterDegradation = conf.get("Eater Virus", "eaterDegradation", 1).getDouble(1);
 	    conf.save();
 	}

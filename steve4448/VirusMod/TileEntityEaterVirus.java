@@ -26,7 +26,8 @@ public class TileEntityEaterVirus extends TileEntity {
 			if((toEat <= 0 && blockPositions.size() == 1) || blockPositions.size() < 1) //If the size is below 1 at this point, probably corrupted upon loading.
 				this.invalidate();
 			else
-				handleBlock((blockPositions.size() > 0 ? worldObj.rand.nextInt(blockPositions.size()) : 0));
+				for(int i = 0; i < VirusMod.eaterIterationsPerTick; i++)
+					handleBlock((blockPositions.size() > i ? worldObj.rand.nextInt(blockPositions.size() + i) : 0)); //Increments i so that the potential of calling the same exact one again doesn't occur.
 			curTicks = 0;
 		}
 	}
