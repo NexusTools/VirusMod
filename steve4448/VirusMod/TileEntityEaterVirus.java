@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import cpw.mods.fml.common.FMLLog;
 
 import net.minecraft.block.Block;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 /**
  **  The actual controller of the virus, how it interacts with the world.
@@ -190,5 +193,34 @@ public class TileEntityEaterVirus extends TileEntity {
 			worldObj.setBlockAndMetadataWithNotify(xyz[0], xyz[1], xyz[2], 0, 0);
 		}
 		blockPositions.clear();
+	}
+
+	@Override
+	public void writeToNBT(NBTTagCompound compound) {
+		super.writeToNBT(compound);
+		compound.setFloat("ToEat", toEat);
+		
+		NBTTagList coordList = new NBTTagList();
+		for(int i = 0; i < blockPositions.size(); i++) {
+			int xyz[] = blockPositions.get(i);
+			NBTTagCompound values = new NBTTagCompound();
+			values.setInteger("X", xyz[0]);
+			values.setInteger("Y", xyz[1]);
+			values.setInteger("Z", xyz[2]);
+			coordList.appendTag(values);
+		}
+		compound.setTag("BlockPositions", coordList);
+	}
+
+	@Override
+	public void readFromNBT(NBTTagCompound compound) {
+		super.readFromNBT(compound);
+		toEat = compound.getFloat("ToEat");
+		
+		NBTTagList coordList = compound.getTagList("BlockPositions");
+		for (int i = 0; i < coordList.tagCount(); i++) {
+			NBTTagCompound values = (NBTTagCompound) coordList.tagAt(i);
+			blockPositions.add(new int[]{values.getInteger("X"), values.getInteger("Y"), values.getInteger("Z")});
+		}
 	}
 }
