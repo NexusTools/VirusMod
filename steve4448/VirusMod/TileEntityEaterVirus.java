@@ -26,17 +26,16 @@ public class TileEntityEaterVirus extends TileEntity {
 			if((toEat <= 0 && blockPositions.size() == 1) || blockPositions.size() < 1) //If the size is below 1 at this point, probably corrupted upon loading.
 				this.invalidate();
 			else
-				for(int i = 0; i < VirusMod.eaterIterationsPerTick; i++)
-					handleBlock((blockPositions.size() > i ? worldObj.rand.nextInt(blockPositions.size() + i) : 0)); //Increments i so that the potential of calling the same exact one again doesn't occur.
+				for(int i = 0; i < VirusMod.eaterIterationsPerTick; i++) handleBlock(worldObj.rand.nextInt(blockPositions.size()));
 			curTicks = 0;
 		}
 	}
 	
 	public void handleBlock(int slot) {
 		if(!worldObj.isRemote) {
-			System.out.println(blockPositions.size() + ", " + toEat);
+			System.out.println(blockPositions.size() + ", " + toEat); //TODO: Remove
 			if(slot < 0 || slot >= blockPositions.size()) {
-				FMLLog.severe("Incorrect handleBlock slot?");
+				FMLLog.severe("Incorrect handleBlock slot. Slot " + slot + ", List Size " + blockPositions.size() + ".");
 				return;
 			}
 			int[] xyz = blockPositions.get(slot);
@@ -177,5 +176,19 @@ public class TileEntityEaterVirus extends TileEntity {
 	 **/
 	public int tickRate() {
 		return VirusMod.eaterTickRate;
+	}
+	
+	/**
+	 * Cleanup!
+	 */
+	@Override
+	public void invalidate() {
+		super.invalidate();
+		toEat = 0;
+		for(int i = 0; i < blockPositions.size(); i++) {
+			int[] xyz = blockPositions.get(i);
+			worldObj.setBlockAndMetadataWithNotify(xyz[0], xyz[1], xyz[2], 0, 0);
+		}
+		blockPositions.clear();
 	}
 }

@@ -52,7 +52,7 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-@Mod(modid = "VirusMod", name = "Virus Mod", version = "0.2.1") 
+@Mod(modid = "VirusMod", name = "Virus Mod", version = "0.2.2") 
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
 public class VirusMod {
 	public static final int TEXTURE_VIRUS_EATER = 0;
