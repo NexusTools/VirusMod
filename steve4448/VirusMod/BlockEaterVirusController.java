@@ -10,6 +10,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 /**
  ** This block is essentially the 'host' of the virus, it creates the tile entity.
@@ -23,8 +24,8 @@ public class BlockEaterVirusController extends BlockContainer {
 	}
 
 	@Override
-	public int getBlockTextureFromSide(int par1) {
-		return VirusMod.TEXTURE_VIRUS_EATER;
+	public int getBlockTextureFromSideAndMetadata(int par1, int meta) {
+		return meta == 0 ? VirusMod.TEXTURE_VIRUS_EATER : VirusMod.TEXTURE_VIRUS_STUB;
 	}
 
 	@Override
@@ -51,6 +52,11 @@ public class BlockEaterVirusController extends BlockContainer {
 	public boolean isOpaqueCube() {
 		return false;
 	}
+	
+	@Override
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(World par1World, int par2, int par3, int par4) {
+        return null;
+    }
 
 	@Override
 	public String getTextureFile() {

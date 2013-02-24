@@ -36,7 +36,6 @@ public class TileEntityEaterVirus extends TileEntity {
 	
 	public void handleBlock(int slot) {
 		if(!worldObj.isRemote) {
-			System.out.println(blockPositions.size() + ", " + toEat); //TODO: Remove
 			if(slot < 0 || slot >= blockPositions.size()) {
 				FMLLog.severe("Incorrect handleBlock slot. Slot " + slot + ", List Size " + blockPositions.size() + ".");
 				return;
@@ -153,7 +152,8 @@ public class TileEntityEaterVirus extends TileEntity {
 			if(slot != 0) {
 				worldObj.setBlockAndMetadataWithNotify(xyz[0], xyz[1], xyz[2], 0, 0);
 				blockPositions.remove(xyz);
-			}
+			} else
+				worldObj.setBlockMetadataWithNotify(xyz[0], xyz[1], xyz[2], 1);
 			toEat -= VirusMod.eaterDegradation; //Eventual degradation.
 		}
 	}

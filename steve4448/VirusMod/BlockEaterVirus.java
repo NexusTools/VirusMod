@@ -8,6 +8,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 /**
 ** Mostly just a 'stub' of the virus block, doesn't have any tile entity attached.
@@ -33,6 +34,11 @@ public class BlockEaterVirus extends Block {
 	public boolean isOpaqueCube() {
 		return false;
 	}
+	
+	@Override
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(World par1World, int par2, int par3, int par4) {
+        return null;
+    }
 
 	@Override
 	public String getTextureFile() {

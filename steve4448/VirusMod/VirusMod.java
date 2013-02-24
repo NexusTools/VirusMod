@@ -52,10 +52,10 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-@Mod(modid = "VirusMod", name = "Virus Mod", version = "0.2.2") 
+@Mod(modid = "VirusMod", name = "Virus Mod", version = "0.2.4") 
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
 public class VirusMod {
-	public static final int TEXTURE_VIRUS_EATER = 0;
+	public static final int TEXTURE_VIRUS_EATER = 0, TEXTURE_VIRUS_STUB = 1;
 	public static int blockEaterVirusControllerID;
 	public static int blockEaterVirusID;
 	public static int[] uneatable;
