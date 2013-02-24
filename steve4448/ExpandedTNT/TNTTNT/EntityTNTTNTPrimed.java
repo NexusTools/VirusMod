@@ -1,32 +1,30 @@
 package steve4448.ExpandedTNT.TNTTNT;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityTNTPrimed;
-import net.minecraft.entity.projectile.EntityArrow;
-import net.minecraft.entity.projectile.EntityEgg;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class EntityTNTTNTPrimed extends Entity {
 	public int fuse;
-	
+
 	public EntityTNTTNTPrimed(World par1World) {
 		super(par1World);
-		this.preventEntitySpawning = true;
-		this.setSize(0.98F, 0.98F);
-		this.yOffset = this.height / 2.0F;
-		float var8 = (float)(Math.random() * Math.PI * 2.0D);
-		this.motionX = (double)(-((float)Math.sin((double)var8)) * 0.02F);
-		this.motionY = 0.20000000298023224D;
-		this.motionZ = (double)(-((float)Math.cos((double)var8)) * 0.02F);
-		this.fuse = 80;
-		this.prevPosX = posX;
-		this.prevPosY = posY;
-		this.prevPosZ = posZ;
+		preventEntitySpawning = true;
+		setSize(0.98F, 0.98F);
+		yOffset = height / 2.0F;
+		float var8 = (float) (Math.random() * Math.PI * 2.0D);
+		motionX = (-((float) Math.sin(var8)) * 0.02F);
+		motionY = 0.20000000298023224D;
+		motionZ = (-((float) Math.cos(var8)) * 0.02F);
+		fuse = 80;
+		prevPosX = posX;
+		prevPosY = posY;
+		prevPosZ = posZ;
 	}
-	
+
 	@Override
 	public void onUpdate() {
 		prevPosX = posX;
@@ -37,18 +35,18 @@ public class EntityTNTTNTPrimed extends Entity {
 		motionX *= 0.9800000190734863D;
 		motionY *= 0.9800000190734863D;
 		motionZ *= 0.9800000190734863D;
-		
+
 		if(onGround) {
 			motionX *= 0.699999988079071D;
 			motionZ *= 0.699999988079071D;
 			motionY *= -0.5D;
 		}
-		
+
 		if(fuse-- <= 0) {
 			setDead();
-			
+
 			if(!worldObj.isRemote) {
-				this.worldObj.createExplosion((Entity)null, this.posX, this.posY, this.posZ, 1f, true);
+				worldObj.createExplosion((Entity) null, posX, posY, posZ, 1f, true);
 				for(int i = 0; i < 8; i++) { // 8 logically make sense based on
 												// recipe.
 					EntityTNTPrimed entityTNTPrimed = new EntityTNTPrimed(worldObj, posX, posY, posZ);
@@ -61,25 +59,31 @@ public class EntityTNTTNTPrimed extends Entity {
 			worldObj.spawnParticle("smoke", posX, posY + 0.5D, posZ, 0.0D, 0.0D, 0.0D);
 		}
 	}
-	
+
+	@Override
 	protected void entityInit() {}
-	
+
+	@Override
 	protected boolean canTriggerWalking() {
 		return false;
 	}
-	
+
+	@Override
 	public boolean canBeCollidedWith() {
-		return !this.isDead;
+		return !isDead;
 	}
-	
+
+	@Override
 	protected void writeEntityToNBT(NBTTagCompound par1NBTTagCompound) {
-		par1NBTTagCompound.setByte("Fuse", (byte)this.fuse);
+		par1NBTTagCompound.setByte("Fuse", (byte) fuse);
 	}
-	
+
+	@Override
 	protected void readEntityFromNBT(NBTTagCompound par1NBTTagCompound) {
-		this.fuse = par1NBTTagCompound.getByte("Fuse");
+		fuse = par1NBTTagCompound.getByte("Fuse");
 	}
-	
+
+	@Override
 	@SideOnly(Side.CLIENT)
 	public float getShadowSize() {
 		return 0.0F;
