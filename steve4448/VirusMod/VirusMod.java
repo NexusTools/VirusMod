@@ -1,10 +1,13 @@
 package steve4448.VirusMod;
 
+import java.io.IOException;
+
 import steve4448.VirusMod.block.BlockEaterVirus;
 import steve4448.VirusMod.block.BlockEaterVirusController;
-import steve4448.VirusMod.texture.TextureEaterVirusFX;
 import steve4448.VirusMod.tileentity.TileEntityEaterVirus;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
+import net.minecraft.src.ModTextureAnimation;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.Configuration;
 import cpw.mods.fml.client.TextureFXManager;
@@ -54,6 +57,7 @@ public class VirusMod {
 	public void load(FMLInitializationEvent IEvent) {
 		MinecraftForgeClient.preloadTexture("/steve4448/images/virussheet.png");
 		MinecraftForgeClient.preloadTexture("/steve4448/anim/eatervirusanim.png");
+		
 		blockEaterVirusController = new BlockEaterVirusController(blockEaterVirusControllerID);
 		blockEaterVirus = new BlockEaterVirus(blockEaterVirusID);
 
@@ -64,6 +68,15 @@ public class VirusMod {
 		LanguageRegistry.addName(blockEaterVirus, "Eater Virus");
 
 		GameRegistry.registerTileEntity(TileEntityEaterVirus.class, "TileEntityEaterVirus");
-		TextureFXManager.instance().addAnimation(new TextureEaterVirusFX());
+		
+		ModTextureAnimation virusAnim;
+		try {
+			virusAnim = new ModTextureAnimation(0, 3, "/steve4448/images/virussheet.png", TextureFXManager.instance().loadImageFromTexturePack(Minecraft.getMinecraft().renderEngine, "/steve4448/anim/eatervirusanim.png"), 3);
+			virusAnim.setup();
+			virusAnim.bindImage(Minecraft.getMinecraft().renderEngine);
+			TextureFXManager.instance().addAnimation(virusAnim);
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
