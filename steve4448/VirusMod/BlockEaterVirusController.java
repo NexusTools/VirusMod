@@ -32,7 +32,8 @@ public class BlockEaterVirusController extends BlockContainer {
 
 	@Override
 	public void onPostBlockPlaced(World world, int x, int y, int z, int meta) {
-		if(!(world.getBlockTileEntity(x, y, z) instanceof TileEntityEaterVirus)) return;
+		if(!(world.getBlockTileEntity(x, y, z) instanceof TileEntityEaterVirus))
+			return;
 
 		TileEntityEaterVirus eaterEntity = (TileEntityEaterVirus) world.getBlockTileEntity(x, y, z);
 		eaterEntity.init(VirusMod.eaterStrengthMin + world.rand.nextInt(VirusMod.eaterStrengthMax - VirusMod.eaterStrengthMin), x, y, z);

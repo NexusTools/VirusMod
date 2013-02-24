@@ -63,29 +63,49 @@ public class ExpandedTNT {
 		blockTNTTNT = new BlockTNTTNT(blockTNTTNTID);
 		blockTNTTNTTNT = new BlockTNTTNTTNT(blockTNTTNTNTTID);
 
-		if(blockArrowsTNTEnabled) GameRegistry.registerBlock(blockArrowsTNT, "Arrow TNT");
-		if(blockEggTNTEnabled) GameRegistry.registerBlock(blockEggTNT, "Egg TNT");
-		if(blockTNTTNTEnabled) GameRegistry.registerBlock(blockTNTTNT, "TNT TNT");
-		if(blockTNTTNTEnabled && blockTNTTNTTNTEnabled) GameRegistry.registerBlock(blockTNTTNTTNT, "TNT TNT TNT");
+		if(blockArrowsTNTEnabled)
+			GameRegistry.registerBlock(blockArrowsTNT, "Arrow TNT");
+		if(blockEggTNTEnabled)
+			GameRegistry.registerBlock(blockEggTNT, "Egg TNT");
+		if(blockTNTTNTEnabled)
+			GameRegistry.registerBlock(blockTNTTNT, "TNT TNT");
+		if(blockTNTTNTEnabled && blockTNTTNTTNTEnabled)
+			GameRegistry.registerBlock(blockTNTTNTTNT, "TNT TNT TNT");
 
-		if(blockArrowsTNTEnabled) LanguageRegistry.addName(blockArrowsTNT, "Arrow TNT");
-		if(blockEggTNTEnabled) LanguageRegistry.addName(blockEggTNT, "Egg TNT");
-		if(blockTNTTNTEnabled) LanguageRegistry.addName(blockTNTTNT, "TNT TNT");
-		if(blockTNTTNTEnabled && blockTNTTNTTNTEnabled) LanguageRegistry.addName(blockTNTTNTTNT, "TNT TNT TNT");
+		if(blockArrowsTNTEnabled)
+			LanguageRegistry.addName(blockArrowsTNT, "Arrow TNT");
+		if(blockEggTNTEnabled)
+			LanguageRegistry.addName(blockEggTNT, "Egg TNT");
+		if(blockTNTTNTEnabled)
+			LanguageRegistry.addName(blockTNTTNT, "TNT TNT");
+		if(blockTNTTNTEnabled && blockTNTTNTTNTEnabled)
+			LanguageRegistry.addName(blockTNTTNTTNT, "TNT TNT TNT");
 
-		if(blockArrowsTNTEnabled) GameRegistry.addRecipe(new ItemStack(blockArrowsTNT), "AAA", "ATA", "AAA", Character.valueOf('A'), new ItemStack(Item.arrow), Character.valueOf('T'), new ItemStack(Block.tnt));
-		if(blockEggTNTEnabled) GameRegistry.addRecipe(new ItemStack(blockEggTNT), "EEE", "ETE", "EEE", Character.valueOf('E'), new ItemStack(Item.egg), Character.valueOf('T'), new ItemStack(Block.tnt));
-		if(blockTNTTNTEnabled) GameRegistry.addRecipe(new ItemStack(blockTNTTNT), "TTT", "TTT", "TTT", Character.valueOf('T'), new ItemStack(Block.tnt));
-		if(blockTNTTNTEnabled && blockTNTTNTTNTEnabled) GameRegistry.addRecipe(new ItemStack(blockTNTTNTTNT), "EEE", "ETE", "EEE", Character.valueOf('E'), new ItemStack(blockTNTTNT), Character.valueOf('T'), new ItemStack(Block.tnt));
+		if(blockArrowsTNTEnabled)
+			GameRegistry.addRecipe(new ItemStack(blockArrowsTNT), "AAA", "ATA", "AAA", Character.valueOf('A'), new ItemStack(Item.arrow), Character.valueOf('T'), new ItemStack(Block.tnt));
+		if(blockEggTNTEnabled)
+			GameRegistry.addRecipe(new ItemStack(blockEggTNT), "EEE", "ETE", "EEE", Character.valueOf('E'), new ItemStack(Item.egg), Character.valueOf('T'), new ItemStack(Block.tnt));
+		if(blockTNTTNTEnabled)
+			GameRegistry.addRecipe(new ItemStack(blockTNTTNT), "TTT", "TTT", "TTT", Character.valueOf('T'), new ItemStack(Block.tnt));
+		if(blockTNTTNTEnabled && blockTNTTNTTNTEnabled)
+			GameRegistry.addRecipe(new ItemStack(blockTNTTNTTNT), "EEE", "ETE", "EEE", Character.valueOf('E'), new ItemStack(blockTNTTNT), Character.valueOf('T'), new ItemStack(Block.tnt));
 
-		if(blockArrowsTNTEnabled) RenderingRegistry.registerEntityRenderingHandler(EntityArrowTNTPrimed.class, new RenderArrowTNTPrimed());
-		if(blockEggTNTEnabled) RenderingRegistry.registerEntityRenderingHandler(EntityEggTNTPrimed.class, new RenderEggTNTPrimed());
-		if(blockTNTTNTEnabled) RenderingRegistry.registerEntityRenderingHandler(EntityTNTTNTPrimed.class, new RenderTNTTNTPrimed());
-		if(blockTNTTNTEnabled && blockTNTTNTTNTEnabled) RenderingRegistry.registerEntityRenderingHandler(EntityTNTTNTTNTPrimed.class, new RenderTNTTNTTNTPrimed());
+		if(blockArrowsTNTEnabled)
+			RenderingRegistry.registerEntityRenderingHandler(EntityArrowTNTPrimed.class, new RenderArrowTNTPrimed());
+		if(blockEggTNTEnabled)
+			RenderingRegistry.registerEntityRenderingHandler(EntityEggTNTPrimed.class, new RenderEggTNTPrimed());
+		if(blockTNTTNTEnabled)
+			RenderingRegistry.registerEntityRenderingHandler(EntityTNTTNTPrimed.class, new RenderTNTTNTPrimed());
+		if(blockTNTTNTEnabled && blockTNTTNTTNTEnabled)
+			RenderingRegistry.registerEntityRenderingHandler(EntityTNTTNTTNTPrimed.class, new RenderTNTTNTTNTPrimed());
 
-		if(blockArrowsTNTEnabled) EntityRegistry.registerModEntity(EntityArrowTNTPrimed.class, "EntityArrowTNTPrimed", 1, this, 160, 3, true);
-		if(blockEggTNTEnabled) EntityRegistry.registerModEntity(EntityEggTNTPrimed.class, "EntityEggTNTPrimed", 2, this, 160, 3, true);
-		if(blockTNTTNTEnabled) EntityRegistry.registerModEntity(EntityTNTTNTPrimed.class, "EntityTNTTNTPrimed", 3, this, 160, 3, true);
-		if(blockTNTTNTEnabled && blockTNTTNTTNTEnabled) EntityRegistry.registerModEntity(EntityTNTTNTTNTPrimed.class, "EntityTNTTNTTNTPrimed", 4, this, 160, 3, true);
+		if(blockArrowsTNTEnabled)
+			EntityRegistry.registerModEntity(EntityArrowTNTPrimed.class, "EntityArrowTNTPrimed", 1, this, 160, 3, true);
+		if(blockEggTNTEnabled)
+			EntityRegistry.registerModEntity(EntityEggTNTPrimed.class, "EntityEggTNTPrimed", 2, this, 160, 3, true);
+		if(blockTNTTNTEnabled)
+			EntityRegistry.registerModEntity(EntityTNTTNTPrimed.class, "EntityTNTTNTPrimed", 3, this, 160, 3, true);
+		if(blockTNTTNTEnabled && blockTNTTNTTNTEnabled)
+			EntityRegistry.registerModEntity(EntityTNTTNTTNTPrimed.class, "EntityTNTTNTTNTPrimed", 4, this, 160, 3, true);
 	}
 }

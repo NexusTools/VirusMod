@@ -24,14 +24,15 @@ public class TileEntityEaterVirus extends TileEntity {
 
 	@Override
 	public void updateEntity() {
-		if(!worldObj.isRemote) if(curTicks++ >= tickRate()) {
-			if(toEat <= 0 && blockPositions.size() == 1 || blockPositions.size() < 1) // If the size is below 1 at this point, it's probably corrupt upon loading.
-				invalidate();
-			else
-				for(int i = 0; i < VirusMod.eaterIterationsPerTick; i++)
-					handleBlock(worldObj.rand.nextInt(blockPositions.size()));
-			curTicks = 0;
-		}
+		if(!worldObj.isRemote)
+			if(curTicks++ >= tickRate()) {
+				if(toEat <= 0 && blockPositions.size() == 1 || blockPositions.size() < 1) // If the size is below 1 at this point, it's probably corrupt upon loading.
+					invalidate();
+				else
+					for(int i = 0; i < VirusMod.eaterIterationsPerTick; i++)
+						handleBlock(worldObj.rand.nextInt(blockPositions.size()));
+				curTicks = 0;
+			}
 	}
 
 	public void handleBlock(int slot) {
@@ -51,7 +52,8 @@ public class TileEntityEaterVirus extends TileEntity {
 			if(worldObj.blockExists(xyz[0] - 1, xyz[1], xyz[2]) && worldObj.rand.nextBoolean()) {
 				boolean flag = false;
 				for(int i = 0; i < VirusMod.uneatable.length; i++)
-					if(VirusMod.uneatable[i] == worldObj.getBlockId(xyz[0] - 1, xyz[1], xyz[2])) flag = true;
+					if(VirusMod.uneatable[i] == worldObj.getBlockId(xyz[0] - 1, xyz[1], xyz[2]))
+						flag = true;
 
 				if(!flag) {
 					degradeBasedOffBlock(xyz[0], xyz[1], xyz[2]);
@@ -65,7 +67,8 @@ public class TileEntityEaterVirus extends TileEntity {
 			if(worldObj.blockExists(xyz[0] + 1, xyz[1], xyz[2]) && worldObj.rand.nextBoolean()) {
 				boolean flag = false;
 				for(int i = 0; i < VirusMod.uneatable.length; i++)
-					if(VirusMod.uneatable[i] == worldObj.getBlockId(xyz[0] + 1, xyz[1], xyz[2])) flag = true;
+					if(VirusMod.uneatable[i] == worldObj.getBlockId(xyz[0] + 1, xyz[1], xyz[2]))
+						flag = true;
 
 				if(!flag) {
 					degradeBasedOffBlock(xyz[0], xyz[1], xyz[2]);
@@ -79,7 +82,8 @@ public class TileEntityEaterVirus extends TileEntity {
 			if(worldObj.blockExists(xyz[0], xyz[1] - 1, xyz[2]) && worldObj.rand.nextBoolean()) {
 				boolean flag = false;
 				for(int i = 0; i < VirusMod.uneatable.length; i++)
-					if(VirusMod.uneatable[i] == worldObj.getBlockId(xyz[0], xyz[1] - 1, xyz[2])) flag = true;
+					if(VirusMod.uneatable[i] == worldObj.getBlockId(xyz[0], xyz[1] - 1, xyz[2]))
+						flag = true;
 
 				if(!flag) {
 					degradeBasedOffBlock(xyz[0], xyz[1], xyz[2]);
@@ -93,7 +97,8 @@ public class TileEntityEaterVirus extends TileEntity {
 			if(worldObj.blockExists(xyz[0], xyz[1] + 1, xyz[2]) && worldObj.rand.nextBoolean()) {
 				boolean flag = false;
 				for(int i = 0; i < VirusMod.uneatable.length; i++)
-					if(VirusMod.uneatable[i] == worldObj.getBlockId(xyz[0], xyz[1] + 1, xyz[2])) flag = true;
+					if(VirusMod.uneatable[i] == worldObj.getBlockId(xyz[0], xyz[1] + 1, xyz[2]))
+						flag = true;
 
 				if(!flag) {
 					degradeBasedOffBlock(xyz[0], xyz[1], xyz[2]);
@@ -107,7 +112,8 @@ public class TileEntityEaterVirus extends TileEntity {
 			if(worldObj.blockExists(xyz[0], xyz[1], xyz[2] - 1) && worldObj.rand.nextBoolean()) {
 				boolean flag = false;
 				for(int i = 0; i < VirusMod.uneatable.length; i++)
-					if(VirusMod.uneatable[i] == worldObj.getBlockId(xyz[0], xyz[1], xyz[2] - 1)) flag = true;
+					if(VirusMod.uneatable[i] == worldObj.getBlockId(xyz[0], xyz[1], xyz[2] - 1))
+						flag = true;
 
 				if(!flag) {
 					degradeBasedOffBlock(xyz[0], xyz[1], xyz[2]);
@@ -121,7 +127,8 @@ public class TileEntityEaterVirus extends TileEntity {
 			if(worldObj.blockExists(xyz[0], xyz[1], xyz[2] + 1) && worldObj.rand.nextBoolean()) {
 				boolean flag = false;
 				for(int i = 0; i < VirusMod.uneatable.length; i++)
-					if(VirusMod.uneatable[i] == worldObj.getBlockId(xyz[0], xyz[1], xyz[2] + 1)) flag = true;
+					if(VirusMod.uneatable[i] == worldObj.getBlockId(xyz[0], xyz[1], xyz[2] + 1))
+						flag = true;
 
 				if(!flag) {
 					degradeBasedOffBlock(xyz[0], xyz[1], xyz[2]);
@@ -149,10 +156,11 @@ public class TileEntityEaterVirus extends TileEntity {
 		if(VirusMod.useBlockResistance) {
 			int type = worldObj.getBlockId(x, y, z);
 			for(int i = 0; i < Block.blocksList.length; i++)
-				if(Block.blocksList[i] != null) if(Block.blocksList[i].idPicked(worldObj, x, y, z) == type) {
-					toEat -= Block.blocksList[i].getBlockHardness(worldObj, x, y, z);
-					break;
-				}
+				if(Block.blocksList[i] != null)
+					if(Block.blocksList[i].idPicked(worldObj, x, y, z) == type) {
+						toEat -= Block.blocksList[i].getBlockHardness(worldObj, x, y, z);
+						break;
+					}
 		}
 	}
 
