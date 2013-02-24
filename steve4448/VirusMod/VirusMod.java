@@ -1,8 +1,13 @@
 package steve4448.VirusMod;
 
+import steve4448.VirusMod.block.BlockEaterVirus;
+import steve4448.VirusMod.block.BlockEaterVirusController;
+import steve4448.VirusMod.texture.TextureEaterVirusFX;
+import steve4448.VirusMod.tileentity.TileEntityEaterVirus;
 import net.minecraft.block.Block;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.Configuration;
+import cpw.mods.fml.client.TextureFXManager;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
 import cpw.mods.fml.common.Mod.PreInit;
@@ -12,7 +17,7 @@ import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
-@Mod(modid = "VirusMod", name = "Virus Mod", version = "0.2.8")
+@Mod(modid = "VirusMod", name = "Virus Mod", version = "0.2.9")
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
 public class VirusMod {
 	public static final int TEXTURE_VIRUS_EATER = 0, TEXTURE_VIRUS_STUB = 1;
@@ -48,6 +53,7 @@ public class VirusMod {
 	@Init
 	public void load(FMLInitializationEvent IEvent) {
 		MinecraftForgeClient.preloadTexture("/steve4448/images/virussheet.png");
+		MinecraftForgeClient.preloadTexture("/steve4448/anim/eatervirusanim.png");
 		blockEaterVirusController = new BlockEaterVirusController(blockEaterVirusControllerID);
 		blockEaterVirus = new BlockEaterVirus(blockEaterVirusID);
 
@@ -58,5 +64,6 @@ public class VirusMod {
 		LanguageRegistry.addName(blockEaterVirus, "Eater Virus");
 
 		GameRegistry.registerTileEntity(TileEntityEaterVirus.class, "TileEntityEaterVirus");
+		TextureFXManager.instance().addAnimation(new TextureEaterVirusFX());
 	}
 }
