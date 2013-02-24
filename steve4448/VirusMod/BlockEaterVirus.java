@@ -39,6 +39,11 @@ public class BlockEaterVirus extends Block {
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World par1World, int par2, int par3, int par4) {
         return null;
     }
+	
+	@Override
+    public boolean isCollidable() {
+        return false;
+    }
 
 	@Override
 	public String getTextureFile() {

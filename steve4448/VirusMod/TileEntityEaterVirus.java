@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import cpw.mods.fml.common.FMLLog;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -25,12 +26,14 @@ public class TileEntityEaterVirus extends TileEntity {
 	
 	@Override
 	public void updateEntity() {
-		if(curTicks++ >= tickRate()) {
-			if((toEat <= 0 && blockPositions.size() == 1) || blockPositions.size() < 1) //If the size is below 1 at this point, probably corrupted upon loading.
-				this.invalidate();
-			else
-				for(int i = 0; i < VirusMod.eaterIterationsPerTick; i++) handleBlock(worldObj.rand.nextInt(blockPositions.size()));
-			curTicks = 0;
+		if(!worldObj.isRemote) {
+			if(curTicks++ >= tickRate()) {
+				if((toEat <= 0 && blockPositions.size() == 1) || blockPositions.size() < 1) //If the size is below 1 at this point, probably corrupted upon loading.
+					this.invalidate();
+				else
+					for(int i = 0; i < VirusMod.eaterIterationsPerTick; i++) handleBlock(worldObj.rand.nextInt(blockPositions.size()));
+				curTicks = 0;
+			}
 		}
 	}
 	
@@ -152,8 +155,10 @@ public class TileEntityEaterVirus extends TileEntity {
 			if(slot != 0) {
 				worldObj.setBlockAndMetadataWithNotify(xyz[0], xyz[1], xyz[2], 0, 0);
 				blockPositions.remove(xyz);
-			} else
+			} else {
 				worldObj.setBlockMetadataWithNotify(xyz[0], xyz[1], xyz[2], 1);
+				worldObj.markBlockForUpdate(xyz[0], xyz[1], xyz[2]); //Apparently required in order to get it to re-render with the new texture.
+			}
 			toEat -= VirusMod.eaterDegradation; //Eventual degradation.
 		}
 	}
