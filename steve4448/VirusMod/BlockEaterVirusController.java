@@ -2,6 +2,9 @@ package steve4448.VirusMod;
 
 import java.util.Random;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
@@ -62,5 +65,10 @@ public class BlockEaterVirusController extends BlockContainer {
 	@Override
 	public String getTextureFile() {
 		return "/steve4448/images/virussheet.png";
+	}
+	
+	@SideOnly(Side.CLIENT)
+	public void randomDisplayTick(World world, int x, int y, int z, Random random) {
+		world.spawnParticle("tilecrack_" + blockID + "_0", x + random.nextDouble(), y + random.nextDouble(), z + random.nextDouble(), random.nextDouble() - random.nextDouble(), random.nextDouble() - random.nextDouble(), random.nextDouble() - random.nextDouble());
 	}
 }
