@@ -28,13 +28,9 @@ public class RenderTNTTNTTNTPrimed extends Render {
 		if(entityTNTTNTTNT.fuse - par9 + 1.0F < 10.0F) {
 			var10 = 1.0F - (entityTNTTNTTNT.fuse - par9 + 1.0F) / 10.0F;
 
-			if(var10 < 0.0F) {
-				var10 = 0.0F;
-			}
+			if(var10 < 0.0F) var10 = 0.0F;
 
-			if(var10 > 1.0F) {
-				var10 = 1.0F;
-			}
+			if(var10 > 1.0F) var10 = 1.0F;
 
 			var10 *= var10;
 			var10 *= var10;

@@ -19,34 +19,18 @@ public class TileEntityEaterVirus extends TileEntity {
 
 	public void init(float toEat, int x, int y, int z) {
 		this.toEat = toEat;
-		blockPositions.add(new int[] { x, y, z });
+		blockPositions.add(new int[]{x, y, z});
 	}
 
 	@Override
 	public void updateEntity() {
-		if(!worldObj.isRemote) {
-			if(curTicks++ >= tickRate()) {
-				if(toEat <= 0 && blockPositions.size() == 1 || blockPositions.size() < 1) {
-					// the
-					// size
-					// is
-					// below
-					// 1
-					// at
-					// this
-					// point,
-					// probably
-					// corrupted
-					// upon
-					// loading.
-					invalidate();
-				} else {
-					for(int i = 0; i < VirusMod.eaterIterationsPerTick; i++) {
-						handleBlock(worldObj.rand.nextInt(blockPositions.size()));
-					}
-				}
-				curTicks = 0;
-			}
+		if(!worldObj.isRemote) if(curTicks++ >= tickRate()) {
+			if(toEat <= 0 && blockPositions.size() == 1 || blockPositions.size() < 1) // If the size is below 1 at this point, it's probably corrupt upon loading.
+				invalidate();
+			else
+				for(int i = 0; i < VirusMod.eaterIterationsPerTick; i++)
+					handleBlock(worldObj.rand.nextInt(blockPositions.size()));
+			curTicks = 0;
 		}
 	}
 
@@ -66,102 +50,84 @@ public class TileEntityEaterVirus extends TileEntity {
 
 			if(worldObj.blockExists(xyz[0] - 1, xyz[1], xyz[2]) && worldObj.rand.nextBoolean()) {
 				boolean flag = false;
-				for(int i = 0; i < VirusMod.uneatable.length; i++) {
-					if(VirusMod.uneatable[i] == worldObj.getBlockId(xyz[0] - 1, xyz[1], xyz[2])) {
-						flag = true;
-					}
-				}
+				for(int i = 0; i < VirusMod.uneatable.length; i++)
+					if(VirusMod.uneatable[i] == worldObj.getBlockId(xyz[0] - 1, xyz[1], xyz[2])) flag = true;
 
 				if(!flag) {
 					degradeBasedOffBlock(xyz[0], xyz[1], xyz[2]);
 					worldObj.removeBlockTileEntity(xyz[0] - 1, xyz[1], xyz[2]);
 					worldObj.setBlockAndMetadata(xyz[0] - 1, xyz[1], xyz[2], VirusMod.blockEaterVirus.blockID, 0);
-					blockPositions.add(new int[] { xyz[0] - 1, xyz[1], xyz[2] });
+					blockPositions.add(new int[]{xyz[0] - 1, xyz[1], xyz[2]});
 					toEat -= VirusMod.eaterDegradation;
 				}
 			}
 
 			if(worldObj.blockExists(xyz[0] + 1, xyz[1], xyz[2]) && worldObj.rand.nextBoolean()) {
 				boolean flag = false;
-				for(int i = 0; i < VirusMod.uneatable.length; i++) {
-					if(VirusMod.uneatable[i] == worldObj.getBlockId(xyz[0] + 1, xyz[1], xyz[2])) {
-						flag = true;
-					}
-				}
+				for(int i = 0; i < VirusMod.uneatable.length; i++)
+					if(VirusMod.uneatable[i] == worldObj.getBlockId(xyz[0] + 1, xyz[1], xyz[2])) flag = true;
 
 				if(!flag) {
 					degradeBasedOffBlock(xyz[0], xyz[1], xyz[2]);
 					worldObj.removeBlockTileEntity(xyz[0] + 1, xyz[1], xyz[2]);
 					worldObj.setBlockAndMetadata(xyz[0] + 1, xyz[1], xyz[2], VirusMod.blockEaterVirus.blockID, 0);
-					blockPositions.add(new int[] { xyz[0] + 1, xyz[1], xyz[2] });
+					blockPositions.add(new int[]{xyz[0] + 1, xyz[1], xyz[2]});
 					toEat -= VirusMod.eaterDegradation;
 				}
 			}
 
 			if(worldObj.blockExists(xyz[0], xyz[1] - 1, xyz[2]) && worldObj.rand.nextBoolean()) {
 				boolean flag = false;
-				for(int i = 0; i < VirusMod.uneatable.length; i++) {
-					if(VirusMod.uneatable[i] == worldObj.getBlockId(xyz[0], xyz[1] - 1, xyz[2])) {
-						flag = true;
-					}
-				}
+				for(int i = 0; i < VirusMod.uneatable.length; i++)
+					if(VirusMod.uneatable[i] == worldObj.getBlockId(xyz[0], xyz[1] - 1, xyz[2])) flag = true;
 
 				if(!flag) {
 					degradeBasedOffBlock(xyz[0], xyz[1], xyz[2]);
 					worldObj.removeBlockTileEntity(xyz[0], xyz[1] - 1, xyz[2]);
 					worldObj.setBlockAndMetadata(xyz[0], xyz[1] - 1, xyz[2], VirusMod.blockEaterVirus.blockID, 0);
-					blockPositions.add(new int[] { xyz[0], xyz[1] - 1, xyz[2] });
+					blockPositions.add(new int[]{xyz[0], xyz[1] - 1, xyz[2]});
 					toEat -= VirusMod.eaterDegradation;
 				}
 			}
 
 			if(worldObj.blockExists(xyz[0], xyz[1] + 1, xyz[2]) && worldObj.rand.nextBoolean()) {
 				boolean flag = false;
-				for(int i = 0; i < VirusMod.uneatable.length; i++) {
-					if(VirusMod.uneatable[i] == worldObj.getBlockId(xyz[0], xyz[1] + 1, xyz[2])) {
-						flag = true;
-					}
-				}
+				for(int i = 0; i < VirusMod.uneatable.length; i++)
+					if(VirusMod.uneatable[i] == worldObj.getBlockId(xyz[0], xyz[1] + 1, xyz[2])) flag = true;
 
 				if(!flag) {
 					degradeBasedOffBlock(xyz[0], xyz[1], xyz[2]);
 					worldObj.removeBlockTileEntity(xyz[0], xyz[1] + 1, xyz[2]);
 					worldObj.setBlockAndMetadata(xyz[0], xyz[1] + 1, xyz[2], VirusMod.blockEaterVirus.blockID, 0);
-					blockPositions.add(new int[] { xyz[0], xyz[1] + 1, xyz[2] });
+					blockPositions.add(new int[]{xyz[0], xyz[1] + 1, xyz[2]});
 					toEat -= VirusMod.eaterDegradation;
 				}
 			}
 
 			if(worldObj.blockExists(xyz[0], xyz[1], xyz[2] - 1) && worldObj.rand.nextBoolean()) {
 				boolean flag = false;
-				for(int i = 0; i < VirusMod.uneatable.length; i++) {
-					if(VirusMod.uneatable[i] == worldObj.getBlockId(xyz[0], xyz[1], xyz[2] - 1)) {
-						flag = true;
-					}
-				}
+				for(int i = 0; i < VirusMod.uneatable.length; i++)
+					if(VirusMod.uneatable[i] == worldObj.getBlockId(xyz[0], xyz[1], xyz[2] - 1)) flag = true;
 
 				if(!flag) {
 					degradeBasedOffBlock(xyz[0], xyz[1], xyz[2]);
 					worldObj.removeBlockTileEntity(xyz[0], xyz[1], xyz[2] - 1);
 					worldObj.setBlockAndMetadata(xyz[0], xyz[1], xyz[2] - 1, VirusMod.blockEaterVirus.blockID, 0);
-					blockPositions.add(new int[] { xyz[0], xyz[1], xyz[2] - 1 });
+					blockPositions.add(new int[]{xyz[0], xyz[1], xyz[2] - 1});
 					toEat -= VirusMod.eaterDegradation;
 				}
 			}
 
 			if(worldObj.blockExists(xyz[0], xyz[1], xyz[2] + 1) && worldObj.rand.nextBoolean()) {
 				boolean flag = false;
-				for(int i = 0; i < VirusMod.uneatable.length; i++) {
-					if(VirusMod.uneatable[i] == worldObj.getBlockId(xyz[0], xyz[1], xyz[2] + 1)) {
-						flag = true;
-					}
-				}
+				for(int i = 0; i < VirusMod.uneatable.length; i++)
+					if(VirusMod.uneatable[i] == worldObj.getBlockId(xyz[0], xyz[1], xyz[2] + 1)) flag = true;
 
 				if(!flag) {
 					degradeBasedOffBlock(xyz[0], xyz[1], xyz[2]);
 					worldObj.removeBlockTileEntity(xyz[0], xyz[1], xyz[2] + 1);
 					worldObj.setBlockAndMetadata(xyz[0], xyz[1], xyz[2] + 1, VirusMod.blockEaterVirus.blockID, 0);
-					blockPositions.add(new int[] { xyz[0], xyz[1], xyz[2] + 1 });
+					blockPositions.add(new int[]{xyz[0], xyz[1], xyz[2] + 1});
 					toEat -= VirusMod.eaterDegradation;
 				}
 			}
@@ -170,38 +136,23 @@ public class TileEntityEaterVirus extends TileEntity {
 				blockPositions.remove(xyz);
 			} else {
 				worldObj.setBlockMetadataWithNotify(xyz[0], xyz[1], xyz[2], 1);
-				worldObj.markBlockForUpdate(xyz[0], xyz[1], xyz[2]); // Apparently
-																		// required
-																		// in
-																		// order
-																		// to
-																		// get
-																		// it to
-																		// re-render
-																		// with
-																		// the
-																		// new
-																		// texture.
+				worldObj.markBlockForUpdate(xyz[0], xyz[1], xyz[2]); // Apparently required in order to get it to re-render with the new texture.
 			}
 			toEat -= VirusMod.eaterDegradation; // Eventual degradation.
 		}
 	}
 
 	/**
-	 * Degrade the virus based on the block it's destroyed, if enabled. It's not
-	 * the way I want to do it but seems to be the only easy way right now.
-	 * (getBlockHardness(x, y, z) returns whatever block it was called from, not
-	 * the location's block)
+	 * Degrade the virus based on the block it's destroyed, if enabled. It's not the way I want to do it but seems to be the only easy way right now. (getBlockHardness(x, y, z) returns whatever block it was called from, not the location's block)
 	 */
 	public void degradeBasedOffBlock(int x, int y, int z) {
 		if(VirusMod.useBlockResistance) {
 			int type = worldObj.getBlockId(x, y, z);
 			for(int i = 0; i < Block.blocksList.length; i++)
-				if(Block.blocksList[i] != null)
-					if(Block.blocksList[i].idPicked(worldObj, x, y, z) == type) {
-						toEat -= Block.blocksList[i].getBlockHardness(worldObj, x, y, z);
-						break;
-					}
+				if(Block.blocksList[i] != null) if(Block.blocksList[i].idPicked(worldObj, x, y, z) == type) {
+					toEat -= Block.blocksList[i].getBlockHardness(worldObj, x, y, z);
+					break;
+				}
 		}
 	}
 
@@ -251,7 +202,7 @@ public class TileEntityEaterVirus extends TileEntity {
 		NBTTagList coordList = compound.getTagList("BlockPositions");
 		for(int i = 0; i < coordList.tagCount(); i++) {
 			NBTTagCompound values = (NBTTagCompound) coordList.tagAt(i);
-			blockPositions.add(new int[] { values.getInteger("X"), values.getInteger("Y"), values.getInteger("Z") });
+			blockPositions.add(new int[]{values.getInteger("X"), values.getInteger("Y"), values.getInteger("Z")});
 		}
 	}
 }

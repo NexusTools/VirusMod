@@ -10,8 +10,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 
 /**
- ** This block is essentially the 'host' of the virus, it creates the tile
- * entity.
+ ** This block is essentially the 'host' of the virus, it creates the tile entity.
  **/
 public class BlockEaterVirusController extends BlockContainer {
 
@@ -33,8 +32,7 @@ public class BlockEaterVirusController extends BlockContainer {
 
 	@Override
 	public void onPostBlockPlaced(World world, int x, int y, int z, int meta) {
-		if(!(world.getBlockTileEntity(x, y, z) instanceof TileEntityEaterVirus))
-			return;
+		if(!(world.getBlockTileEntity(x, y, z) instanceof TileEntityEaterVirus)) return;
 
 		TileEntityEaterVirus eaterEntity = (TileEntityEaterVirus) world.getBlockTileEntity(x, y, z);
 		eaterEntity.init(VirusMod.eaterStrengthMin + world.rand.nextInt(VirusMod.eaterStrengthMax - VirusMod.eaterStrengthMin), x, y, z);

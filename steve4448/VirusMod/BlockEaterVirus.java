@@ -8,8 +8,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 
 /**
- ** Mostly just a 'stub' of the virus block, doesn't have any tile entity
- * attached.
+ ** Mostly just a 'stub' of the virus block, doesn't have any tile entity attached.
  **/
 public class BlockEaterVirus extends Block {
 

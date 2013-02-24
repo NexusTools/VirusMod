@@ -16,9 +16,9 @@ public class EntityTNTTNTPrimed extends Entity {
 		setSize(0.98F, 0.98F);
 		yOffset = height / 2.0F;
 		float var8 = (float) (Math.random() * Math.PI * 2.0D);
-		motionX = (-((float) Math.sin(var8)) * 0.02F);
+		motionX = -((float) Math.sin(var8)) * 0.02F;
 		motionY = 0.20000000298023224D;
-		motionZ = (-((float) Math.cos(var8)) * 0.02F);
+		motionZ = -((float) Math.cos(var8)) * 0.02F;
 		fuse = 80;
 		prevPosX = posX;
 		prevPosY = posY;
@@ -55,9 +55,8 @@ public class EntityTNTTNTPrimed extends Entity {
 					worldObj.playSoundAtEntity(entityTNTPrimed, "random.bow", 1.0F, 1.0F);
 				}
 			}
-		} else {
+		} else
 			worldObj.spawnParticle("smoke", posX, posY + 0.5D, posZ, 0.0D, 0.0D, 0.0D);
-		}
 	}
 
 	@Override

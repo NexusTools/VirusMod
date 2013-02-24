@@ -35,7 +35,7 @@ public class VirusMod {
 		conf.load();
 		blockEaterVirusControllerID = conf.getBlock("blockEaterVirusControllerID", 450).getInt();
 		blockEaterVirusID = conf.getBlock("blockEaterVirusID", 451).getInt();
-		uneatable = conf.get("Eater Virus", "uneatable", new int[] { 0, Block.obsidian.blockID, blockEaterVirusControllerID, blockEaterVirusID }, "Blocks that are not to be \"aten\" by the eater virus.").getIntList();
+		uneatable = conf.get("Eater Virus", "uneatable", new int[]{0, Block.obsidian.blockID, blockEaterVirusControllerID, blockEaterVirusID}, "Blocks that are not to be \"aten\" by the eater virus.").getIntList();
 		useBlockResistance = conf.get("Eater Virus", "useBlockResistance", true, "The virus will degrade more based on the blocks it destroys.").getBoolean(true);
 		eaterStrengthMin = conf.get("Eater Virus", "eaterStrengthMin", 400).getInt();
 		eaterStrengthMax = conf.get("Eater Virus", "eaterStrengthMax", 1000).getInt();

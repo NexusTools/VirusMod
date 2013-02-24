@@ -28,13 +28,9 @@ public class RenderEggTNTPrimed extends Render {
 		if(entityEggTNT.fuse - par9 + 1.0F < 10.0F) {
 			var10 = 1.0F - (entityEggTNT.fuse - par9 + 1.0F) / 10.0F;
 
-			if(var10 < 0.0F) {
-				var10 = 0.0F;
-			}
+			if(var10 < 0.0F) var10 = 0.0F;
 
-			if(var10 > 1.0F) {
-				var10 = 1.0F;
-			}
+			if(var10 > 1.0F) var10 = 1.0F;
 
 			var10 *= var10;
 			var10 *= var10;
