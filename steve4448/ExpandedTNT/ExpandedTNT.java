@@ -28,7 +28,7 @@ import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
-@Mod(modid = "ExpandedTNT", name = "Expanded TNT", version = "0.9")
+@Mod(modid = "ExpandedTNT", name = "Expanded TNT", version = "0.9.1")
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
 public class ExpandedTNT {
 	public static final int TNT_TEXTURE_TOP = 16, TNT_TEXTURE_BOTTOM = 17, TNT_ARROWS_SIDES = 0, TNT_EGGS_SIDES = 1, TNT_TNT_SIDES = 2, TNT_TNT_TNT_SIDES = 3;
