@@ -71,7 +71,7 @@ public class VirusMod {
 		
 		ModTextureAnimation virusAnim;
 		try {
-			virusAnim = new ModTextureAnimation(0, 3, "/steve4448/images/virussheet.png", TextureFXManager.instance().loadImageFromTexturePack(Minecraft.getMinecraft().renderEngine, "/steve4448/anim/eatervirusanim.png"), 3);
+			virusAnim = new ModTextureAnimation(0, 1, "/steve4448/images/virussheet.png", TextureFXManager.instance().loadImageFromTexturePack(Minecraft.getMinecraft().renderEngine, "/steve4448/anim/eatervirusanim.png"), 2);
 			virusAnim.setup();
 			virusAnim.bindImage(Minecraft.getMinecraft().renderEngine);
 			TextureFXManager.instance().addAnimation(virusAnim);
