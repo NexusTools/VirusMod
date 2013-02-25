@@ -2,11 +2,13 @@ package steve4448.VirusMod;
 
 import java.io.IOException;
 
-import steve4448.VirusMod.block.BlockEaterVirus;
+import steve4448.VirusMod.block.BlockVirusStub;
 import steve4448.VirusMod.block.BlockEaterVirusController;
 import steve4448.VirusMod.tileentity.TileEntityEaterVirus;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.src.ModTextureAnimation;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.Configuration;
@@ -23,6 +25,10 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 @Mod(modid = "VirusMod", name = "Virus Mod", version = "0.2.9")
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
 public class VirusMod {
+	public static final String[] virusBlockNames = { 
+		"Eater Virus", "Replacer Virus", "Tool Virus"
+	};
+	
 	public static final int TEXTURE_VIRUS_EATER = 0, TEXTURE_VIRUS_STUB = 1;
 	public static int blockEaterVirusControllerID;
 	public static int blockEaterVirusID;
@@ -33,9 +39,10 @@ public class VirusMod {
 	public static int eaterTickRate;
 	public static int eaterIterationsPerTick;
 	public static double eaterDegradation;
+	
 
 	public static Block blockEaterVirusController;
-	public static Block blockEaterVirus;
+	public static Block blockVirusStub;
 
 	@PreInit
 	public void preload(FMLPreInitializationEvent iEvent) {
@@ -59,13 +66,18 @@ public class VirusMod {
 		MinecraftForgeClient.preloadTexture("/steve4448/anim/eatervirusanim.png");
 		
 		blockEaterVirusController = new BlockEaterVirusController(blockEaterVirusControllerID);
-		blockEaterVirus = new BlockEaterVirus(blockEaterVirusID);
+		blockVirusStub = new BlockVirusStub(blockEaterVirusID);
 
 		GameRegistry.registerBlock(blockEaterVirusController, "EaterVirusController");
-		LanguageRegistry.addName(blockEaterVirus, "Eater Virus");
+		LanguageRegistry.addName(blockEaterVirusController, "Eater Virus");
 
-		GameRegistry.registerBlock(blockEaterVirus, "EaterVirus");
-		LanguageRegistry.addName(blockEaterVirus, "Eater Virus");
+		GameRegistry.addRecipe(new ItemStack(blockEaterVirusController), "ZCZ", "RSR", "ZCZ", Character.valueOf('Z'), new ItemStack(Item.rottenFlesh), Character.valueOf('R'), new ItemStack(Item.beefRaw), Character.valueOf('S'), new ItemStack(Item.slimeBall), Character.valueOf('C'), new ItemStack(Item.chickenRaw));
+		GameRegistry.addRecipe(new ItemStack(blockEaterVirusController), "ZRZ", "CSC", "ZRZ", Character.valueOf('Z'), new ItemStack(Item.rottenFlesh), Character.valueOf('R'), new ItemStack(Item.beefRaw), Character.valueOf('S'), new ItemStack(Item.slimeBall), Character.valueOf('C'), new ItemStack(Item.chickenRaw));
+
+		GameRegistry.registerBlock(blockVirusStub, "VirusStub");
+		LanguageRegistry.addName(blockVirusStub, "Virus Stub");
+		for (int i = 0; i < virusBlockNames.length; i++)
+			LanguageRegistry.addName(new ItemStack(blockVirusStub, 1, i), virusBlockNames[i]);
 
 		GameRegistry.registerTileEntity(TileEntityEaterVirus.class, "TileEntityEaterVirus");
 		
