@@ -60,6 +60,8 @@ public class BlockVirusStub extends Block {
 		world.spawnParticle("tilecrack_" + blockID + "_" + world.getBlockMetadata(x, y, z), x + random.nextDouble(), y + random.nextDouble(), z + random.nextDouble(), random.nextDouble() - random.nextDouble(), random.nextDouble() - random.nextDouble(), random.nextDouble() - random.nextDouble());
 	}
 
+	@Override
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@SideOnly(Side.CLIENT)
 	public void getSubBlocks(int unknown, CreativeTabs tab, List subItems) {
 		for(int i = 0; i < VirusMod.virusBlockNames.length; i++)

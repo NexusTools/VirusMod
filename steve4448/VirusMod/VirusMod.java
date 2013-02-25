@@ -22,7 +22,7 @@ import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
-@Mod(modid = "VirusMod", name = "Virus Mod", version = "0.2.9")
+@Mod(modid = "VirusMod", name = "Virus Mod", version = "0.3.1")
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
 public class VirusMod {
 	public static final String[] virusBlockNames = { 
@@ -32,6 +32,7 @@ public class VirusMod {
 	public static final int TEXTURE_VIRUS_EATER = 0, TEXTURE_VIRUS_STUB = 1;
 	public static int blockEaterVirusControllerID;
 	public static int blockEaterVirusID;
+	public static boolean eaterEnabled;
 	public static int[] uneatable;
 	public static boolean useBlockResistance;
 	public static int eaterStrengthMin;
@@ -50,6 +51,7 @@ public class VirusMod {
 		conf.load();
 		blockEaterVirusControllerID = conf.getBlock("blockEaterVirusControllerID", 450).getInt();
 		blockEaterVirusID = conf.getBlock("blockEaterVirusID", 451).getInt();
+		eaterEnabled = conf.get("Eater Virus", "eaterEnabled", true).getBoolean(true);
 		uneatable = conf.get("Eater Virus", "uneatable", new int[]{0, Block.obsidian.blockID, blockEaterVirusControllerID, blockEaterVirusID}, "Blocks that are not to be \"aten\" by the eater virus.").getIntList();
 		useBlockResistance = conf.get("Eater Virus", "useBlockResistance", true, "The virus will degrade more based on the blocks it destroys.").getBoolean(true);
 		eaterStrengthMin = conf.get("Eater Virus", "eaterStrengthMin", 400).getInt();
@@ -65,28 +67,31 @@ public class VirusMod {
 		MinecraftForgeClient.preloadTexture("/steve4448/images/virussheet.png");
 		MinecraftForgeClient.preloadTexture("/steve4448/anim/eatervirusanim.png");
 		
-		blockEaterVirusController = new BlockEaterVirusController(blockEaterVirusControllerID);
 		blockVirusStub = new BlockVirusStub(blockEaterVirusID);
-
-		GameRegistry.registerBlock(blockEaterVirusController, "EaterVirusController");
-		LanguageRegistry.addName(blockEaterVirusController, "Eater Virus");
-
-		GameRegistry.addRecipe(new ItemStack(blockEaterVirusController), "ZCZ", "RSR", "ZCZ", Character.valueOf('Z'), new ItemStack(Item.rottenFlesh), Character.valueOf('R'), new ItemStack(Item.beefRaw), Character.valueOf('S'), new ItemStack(Item.slimeBall), Character.valueOf('C'), new ItemStack(Item.chickenRaw));
-		GameRegistry.addRecipe(new ItemStack(blockEaterVirusController), "ZRZ", "CSC", "ZRZ", Character.valueOf('Z'), new ItemStack(Item.rottenFlesh), Character.valueOf('R'), new ItemStack(Item.beefRaw), Character.valueOf('S'), new ItemStack(Item.slimeBall), Character.valueOf('C'), new ItemStack(Item.chickenRaw));
-
 		GameRegistry.registerBlock(blockVirusStub, "VirusStub");
 		LanguageRegistry.addName(blockVirusStub, "Virus Stub");
+		
+		if(eaterEnabled) {
+			blockEaterVirusController = new BlockEaterVirusController(blockEaterVirusControllerID);
+			GameRegistry.registerBlock(blockEaterVirusController, "EaterVirusController");
+			LanguageRegistry.addName(blockEaterVirusController, "Eater Virus");
+			GameRegistry.addRecipe(new ItemStack(blockEaterVirusController), "ZCZ", "RSR", "ZCZ", Character.valueOf('Z'), new ItemStack(Item.rottenFlesh), Character.valueOf('R'), new ItemStack(Item.beefRaw), Character.valueOf('S'), new ItemStack(Item.slimeBall), Character.valueOf('C'), new ItemStack(Item.chickenRaw));
+			GameRegistry.addRecipe(new ItemStack(blockEaterVirusController), "ZRZ", "CSC", "ZRZ", Character.valueOf('Z'), new ItemStack(Item.rottenFlesh), Character.valueOf('R'), new ItemStack(Item.beefRaw), Character.valueOf('S'), new ItemStack(Item.slimeBall), Character.valueOf('C'), new ItemStack(Item.chickenRaw));
+			GameRegistry.registerTileEntity(TileEntityEaterVirus.class, "TileEntityEaterVirus");
+		}
+		
+		
 		for (int i = 0; i < virusBlockNames.length; i++)
 			LanguageRegistry.addName(new ItemStack(blockVirusStub, 1, i), virusBlockNames[i]);
 
-		GameRegistry.registerTileEntity(TileEntityEaterVirus.class, "TileEntityEaterVirus");
 		
-		ModTextureAnimation virusAnim;
+		
+		ModTextureAnimation virusEaterAnim;
 		try {
-			virusAnim = new ModTextureAnimation(0, 1, "/steve4448/images/virussheet.png", TextureFXManager.instance().loadImageFromTexturePack(Minecraft.getMinecraft().renderEngine, "/steve4448/anim/eatervirusanim.png"), 2);
-			virusAnim.setup();
-			virusAnim.bindImage(Minecraft.getMinecraft().renderEngine);
-			TextureFXManager.instance().addAnimation(virusAnim);
+			virusEaterAnim = new ModTextureAnimation(0, 1, "/steve4448/images/virussheet.png", TextureFXManager.instance().loadImageFromTexturePack(Minecraft.getMinecraft().renderEngine, "/steve4448/anim/eatervirusanim.png"), 2);
+			virusEaterAnim.setup();
+			virusEaterAnim.bindImage(Minecraft.getMinecraft().renderEngine);
+			TextureFXManager.instance().addAnimation(virusEaterAnim);
 		} catch(IOException e) {
 			e.printStackTrace();
 		}

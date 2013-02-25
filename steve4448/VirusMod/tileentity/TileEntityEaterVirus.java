@@ -16,11 +16,11 @@ import cpw.mods.fml.common.FMLLog;
 public class TileEntityEaterVirus extends TileEntity {
 
 	public ArrayList<int[]> blockPositions = new ArrayList<int[]>();
-	public float toEat = 0;
+	public float degradationLeft = 0;
 	private int curTicks = 0;
 
 	public void init(float toEat, int x, int y, int z) {
-		this.toEat = toEat;
+		this.degradationLeft = toEat;
 		blockPositions.add(new int[]{x, y, z});
 	}
 
@@ -28,7 +28,7 @@ public class TileEntityEaterVirus extends TileEntity {
 	public void updateEntity() {
 		if(!worldObj.isRemote)
 			if(curTicks++ >= tickRate()) {
-				if(toEat <= 0 && blockPositions.size() == 1 || blockPositions.size() < 1) // If the size is below 1 at this point, it's probably corrupt upon loading.
+				if(degradationLeft <= 0 && blockPositions.size() == 1 || blockPositions.size() < 1) // If the size is below 1 at this point, it's probably corrupt upon loading.
 					invalidate();
 				else
 					for(int i = 0; i < VirusMod.eaterIterationsPerTick; i++)
@@ -45,7 +45,7 @@ public class TileEntityEaterVirus extends TileEntity {
 			}
 			int[] xyz = blockPositions.get(slot);
 
-			if(toEat <= 0 && slot > 0) {
+			if(degradationLeft <= 0 && slot > 0) {
 				worldObj.setBlockAndMetadataWithNotify(xyz[0], xyz[1], xyz[2], 0, 0);
 				blockPositions.remove(xyz);
 				return;
@@ -62,7 +62,7 @@ public class TileEntityEaterVirus extends TileEntity {
 					worldObj.removeBlockTileEntity(xyz[0] - 1, xyz[1], xyz[2]);
 					worldObj.setBlockAndMetadata(xyz[0] - 1, xyz[1], xyz[2], VirusMod.blockVirusStub.blockID, VirusMod.TEXTURE_VIRUS_EATER);
 					blockPositions.add(new int[]{xyz[0] - 1, xyz[1], xyz[2]});
-					toEat -= VirusMod.eaterDegradation;
+					degradationLeft -= VirusMod.eaterDegradation;
 				}
 			}
 
@@ -77,7 +77,7 @@ public class TileEntityEaterVirus extends TileEntity {
 					worldObj.removeBlockTileEntity(xyz[0] + 1, xyz[1], xyz[2]);
 					worldObj.setBlockAndMetadata(xyz[0] + 1, xyz[1], xyz[2], VirusMod.blockVirusStub.blockID, VirusMod.TEXTURE_VIRUS_EATER);
 					blockPositions.add(new int[]{xyz[0] + 1, xyz[1], xyz[2]});
-					toEat -= VirusMod.eaterDegradation;
+					degradationLeft -= VirusMod.eaterDegradation;
 				}
 			}
 
@@ -92,7 +92,7 @@ public class TileEntityEaterVirus extends TileEntity {
 					worldObj.removeBlockTileEntity(xyz[0], xyz[1] - 1, xyz[2]);
 					worldObj.setBlockAndMetadata(xyz[0], xyz[1] - 1, xyz[2], VirusMod.blockVirusStub.blockID, VirusMod.TEXTURE_VIRUS_EATER);
 					blockPositions.add(new int[]{xyz[0], xyz[1] - 1, xyz[2]});
-					toEat -= VirusMod.eaterDegradation;
+					degradationLeft -= VirusMod.eaterDegradation;
 				}
 			}
 
@@ -107,7 +107,7 @@ public class TileEntityEaterVirus extends TileEntity {
 					worldObj.removeBlockTileEntity(xyz[0], xyz[1] + 1, xyz[2]);
 					worldObj.setBlockAndMetadata(xyz[0], xyz[1] + 1, xyz[2], VirusMod.blockVirusStub.blockID, VirusMod.TEXTURE_VIRUS_EATER);
 					blockPositions.add(new int[]{xyz[0], xyz[1] + 1, xyz[2]});
-					toEat -= VirusMod.eaterDegradation;
+					degradationLeft -= VirusMod.eaterDegradation;
 				}
 			}
 
@@ -122,7 +122,7 @@ public class TileEntityEaterVirus extends TileEntity {
 					worldObj.removeBlockTileEntity(xyz[0], xyz[1], xyz[2] - 1);
 					worldObj.setBlockAndMetadata(xyz[0], xyz[1], xyz[2] - 1, VirusMod.blockVirusStub.blockID, VirusMod.TEXTURE_VIRUS_EATER);
 					blockPositions.add(new int[]{xyz[0], xyz[1], xyz[2] - 1});
-					toEat -= VirusMod.eaterDegradation;
+					degradationLeft -= VirusMod.eaterDegradation;
 				}
 			}
 
@@ -137,7 +137,7 @@ public class TileEntityEaterVirus extends TileEntity {
 					worldObj.removeBlockTileEntity(xyz[0], xyz[1], xyz[2] + 1);
 					worldObj.setBlockAndMetadata(xyz[0], xyz[1], xyz[2] + 1, VirusMod.blockVirusStub.blockID, VirusMod.TEXTURE_VIRUS_EATER);
 					blockPositions.add(new int[]{xyz[0], xyz[1], xyz[2] + 1});
-					toEat -= VirusMod.eaterDegradation;
+					degradationLeft -= VirusMod.eaterDegradation;
 				}
 			}
 			if(slot != 0) {
@@ -147,7 +147,7 @@ public class TileEntityEaterVirus extends TileEntity {
 				worldObj.setBlockMetadataWithNotify(xyz[0], xyz[1], xyz[2], 1);
 				worldObj.markBlockForUpdate(xyz[0], xyz[1], xyz[2]); // Apparently required in order to get it to re-render with the new texture.
 			}
-			toEat -= VirusMod.eaterDegradation; // Eventual degradation.
+			degradationLeft -= VirusMod.eaterDegradation; // Eventual degradation.
 		}
 	}
 
@@ -160,7 +160,7 @@ public class TileEntityEaterVirus extends TileEntity {
 			for(int i = 0; i < Block.blocksList.length; i++)
 				if(Block.blocksList[i] != null)
 					if(Block.blocksList[i].idPicked(worldObj, x, y, z) == type) {
-						toEat -= Block.blocksList[i].getBlockHardness(worldObj, x, y, z);
+						degradationLeft -= Block.blocksList[i].getBlockHardness(worldObj, x, y, z);
 						break;
 					}
 		}
@@ -179,7 +179,7 @@ public class TileEntityEaterVirus extends TileEntity {
 	@Override
 	public void invalidate() {
 		super.invalidate();
-		toEat = 0;
+		degradationLeft = 0;
 		for(int i = 0; i < blockPositions.size(); i++) {
 			int[] xyz = blockPositions.get(i);
 			worldObj.setBlockAndMetadataWithNotify(xyz[0], xyz[1], xyz[2], 0, 0);
@@ -190,7 +190,7 @@ public class TileEntityEaterVirus extends TileEntity {
 	@Override
 	public void writeToNBT(NBTTagCompound compound) {
 		super.writeToNBT(compound);
-		compound.setFloat("ToEat", toEat);
+		compound.setFloat("DegradationLeft", degradationLeft);
 
 		NBTTagList coordList = new NBTTagList();
 		for(int i = 0; i < blockPositions.size(); i++) {
@@ -207,7 +207,7 @@ public class TileEntityEaterVirus extends TileEntity {
 	@Override
 	public void readFromNBT(NBTTagCompound compound) {
 		super.readFromNBT(compound);
-		toEat = compound.getFloat("ToEat");
+		degradationLeft = compound.getFloat("DegradationLeft");
 
 		NBTTagList coordList = compound.getTagList("BlockPositions");
 		for(int i = 0; i < coordList.tagCount(); i++) {
