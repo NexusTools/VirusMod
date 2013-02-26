@@ -64,7 +64,7 @@ public class BlockVirusStub extends Block {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@SideOnly(Side.CLIENT)
 	public void getSubBlocks(int unknown, CreativeTabs tab, List subItems) {
-		for(int i = 0; i < VirusMod.virusBlockNames.length; i++)
+		for(int i = 0; i < VirusMod.VIRUS_BLOCK_NAMES.length; i++)
 			subItems.add(new ItemStack(this, 1, i));
 	}
 }

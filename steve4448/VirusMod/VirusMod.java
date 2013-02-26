@@ -27,8 +27,8 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 @Mod(modid = "VirusMod", name = "Virus Mod", version = "0.3.6")
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
 public class VirusMod {
-	public static final float virusDegradation = 1;
-	public static final String[] virusBlockNames = { 
+	public static final float VIRUS_DEGRADATION = 1;
+	public static final String[] VIRUS_BLOCK_NAMES = { 
 		"Eater Virus Stub", "Replacer Virus Stub", "Tool Virus Stub"
 	};
 	
@@ -37,6 +37,7 @@ public class VirusMod {
 	public static Block blockVirusStub;
 	public static int blockVirusStubId;
 	public static int[] untouchable;
+	private int[] loadedUntouchable;
 	public static boolean useBlockResistance;
 	public static int virusTickRate;
 	public static int virusIterationsPerTick;
@@ -68,7 +69,7 @@ public class VirusMod {
 		blockReplacerVirusControllerId = conf.getBlock("blockReplacerVirusControllerId", 452).getInt();
 		blockToolVirusControllerId = conf.getBlock("blockToolVirusControllerId", 453).getInt();
 		
-		untouchable = conf.get("Viruses", "untouchable", new int[]{0, Block.obsidian.blockID, blockEaterVirusControllerId, blockVirusStubId}, "Blocks that are not to be \"aten\" by the eater virus.").getIntList();
+		loadedUntouchable = conf.get("Viruses", "untouchable", new int[]{0, Block.obsidian.blockID}, "Blocks that are not to be \"aten\" by the eater virus.").getIntList();
 		useBlockResistance = conf.get("Viruses", "useBlockResistance", true, "The virus will degrade more based on the blocks it destroys.").getBoolean(true);
 		virusTickRate = conf.get("Viruses", "tickRate", 1).getInt();
 		virusIterationsPerTick = conf.get("Viruses", "iterationsPerTick", 5).getInt();
@@ -86,6 +87,12 @@ public class VirusMod {
 		toolVirusStrengthMin = conf.get("Tool Virus", "toolVirusStrengthMin", 400).getInt();
 		toolVirusStrengthMax = conf.get("Tool Virus", "toolVirusStrengthMax", 1000).getInt();
 		conf.save();
+		int[] localUntouchable = new int[]{blockVirusStubId, blockEaterVirusControllerId, blockReplacerVirusControllerId, blockToolVirusControllerId};
+		int[] untouchable = new int[loadedUntouchable.length + localUntouchable.length];
+		for(int i = 0; i < loadedUntouchable.length; i++)
+			untouchable[i] = loadedUntouchable[i];
+		for(int i = 0; i < localUntouchable.length; i++)
+			untouchable[loadedUntouchable.length + i] = localUntouchable[i];
 	}
 
 	@Init
@@ -104,8 +111,8 @@ public class VirusMod {
 		
 		GameRegistry.registerTileEntity(TileEntityVirus.class, "TileEntityVirus");
 		
-		for (int i = 0; i < virusBlockNames.length; i++)
-			LanguageRegistry.addName(new ItemStack(blockVirusStub, 1, i), virusBlockNames[i]);
+		for (int i = 0; i < VIRUS_BLOCK_NAMES.length; i++)
+			LanguageRegistry.addName(new ItemStack(blockVirusStub, 1, i), VIRUS_BLOCK_NAMES[i]);
 		
 		if(eaterVirusEnabled) {
 			blockEaterVirusController = new BlockEaterVirusController(blockEaterVirusControllerId);
