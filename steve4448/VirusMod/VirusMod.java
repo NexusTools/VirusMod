@@ -24,7 +24,7 @@ import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
-@Mod(modid = "VirusMod", name = "Virus Mod", version = "0.3.7")
+@Mod(modid = "VirusMod", name = "Virus Mod", version = "0.3.8")
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
 public class VirusMod {
 	public static final float VIRUS_DEGRADATION = 1;
@@ -41,6 +41,7 @@ public class VirusMod {
 	public static boolean useBlockResistance;
 	public static int virusTickRate;
 	public static int virusIterationsPerTick;
+	public static boolean virusesHaveAnimations;
 	/* Eater Virus */
 	public static Block blockEaterVirusController;
 	public static int blockEaterVirusControllerId;
@@ -73,6 +74,7 @@ public class VirusMod {
 		useBlockResistance = conf.get("Viruses", "useBlockResistance", true, "The virus will degrade more based on the blocks it destroys.").getBoolean(true);
 		virusTickRate = conf.get("Viruses", "tickRate", 1).getInt();
 		virusIterationsPerTick = conf.get("Viruses", "iterationsPerTick", 5).getInt();
+		virusesHaveAnimations = conf.get("Viruses", "virusesHaveAnimations", true).getBoolean(true);
 		
 		
 		eaterVirusEnabled = conf.get("Eater Virus", "eaterVirusEnabled", true).getBoolean(true);
@@ -136,7 +138,7 @@ public class VirusMod {
 		}
 
 		
-		if(eaterVirusEnabled) {
+		if(eaterVirusEnabled && virusesHaveAnimations) {
 			ModTextureAnimation virusEaterAnim;
 			try {
 				virusEaterAnim = new ModTextureAnimation(TEXTURE_EATER_VIRUS, 1, "/steve4448/VirusMod/images/virussheet.png", TextureFXManager.instance().loadImageFromTexturePack(Minecraft.getMinecraft().renderEngine, "/steve4448/VirusMod/anim/eatervirusanim.png"), 2);
@@ -148,7 +150,7 @@ public class VirusMod {
 			}
 		}
 		
-		if(replacerVirusEnabled) {
+		if(replacerVirusEnabled && virusesHaveAnimations) {
 			ModTextureAnimation virusReplacerAnim;
 			try {
 				virusReplacerAnim = new ModTextureAnimation(TEXTURE_REPLACER_VIRUS, 1, "/steve4448/VirusMod/images/virussheet.png", TextureFXManager.instance().loadImageFromTexturePack(Minecraft.getMinecraft().renderEngine, "/steve4448/VirusMod/anim/replacervirusanim.png"), 2);
@@ -160,7 +162,7 @@ public class VirusMod {
 			}
 		}
 		
-		if(toolVirusEnabled) {
+		if(toolVirusEnabled && virusesHaveAnimations) {
 			ModTextureAnimation virusToolAnim;
 			try {
 				virusToolAnim = new ModTextureAnimation(TEXTURE_TOOL_VIRUS, 1, "/steve4448/VirusMod/images/virussheet.png", TextureFXManager.instance().loadImageFromTexturePack(Minecraft.getMinecraft().renderEngine, "/steve4448/VirusMod/anim/toolvirusanim.png"), 2);
