@@ -24,7 +24,7 @@ import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
-@Mod(modid = "VirusMod", name = "Virus Mod", version = "0.3.6")
+@Mod(modid = "VirusMod", name = "Virus Mod", version = "0.3.7")
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
 public class VirusMod {
 	public static final float VIRUS_DEGRADATION = 1;
