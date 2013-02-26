@@ -24,7 +24,7 @@ import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
-@Mod(modid = "VirusMod", name = "Virus Mod", version = "0.3.4")
+@Mod(modid = "VirusMod", name = "Virus Mod", version = "0.3.6")
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
 public class VirusMod {
 	public static final float virusDegradation = 1;
@@ -66,6 +66,7 @@ public class VirusMod {
 		blockVirusStubId = conf.getBlock("blockVirusStubId", 450).getInt();
 		blockEaterVirusControllerId = conf.getBlock("blockEaterVirusControllerId", 451).getInt();
 		blockReplacerVirusControllerId = conf.getBlock("blockReplacerVirusControllerId", 452).getInt();
+		blockToolVirusControllerId = conf.getBlock("blockToolVirusControllerId", 453).getInt();
 		
 		untouchable = conf.get("Viruses", "untouchable", new int[]{0, Block.obsidian.blockID, blockEaterVirusControllerId, blockVirusStubId}, "Blocks that are not to be \"aten\" by the eater virus.").getIntList();
 		useBlockResistance = conf.get("Viruses", "useBlockResistance", true, "The virus will degrade more based on the blocks it destroys.").getBoolean(true);
