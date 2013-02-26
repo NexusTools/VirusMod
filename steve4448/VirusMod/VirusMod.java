@@ -88,7 +88,7 @@ public class VirusMod {
 		toolVirusStrengthMax = conf.get("Tool Virus", "toolVirusStrengthMax", 1000).getInt();
 		conf.save();
 		int[] localUntouchable = new int[]{blockVirusStubId, blockEaterVirusControllerId, blockReplacerVirusControllerId, blockToolVirusControllerId};
-		int[] untouchable = new int[loadedUntouchable.length + localUntouchable.length];
+		untouchable = new int[loadedUntouchable.length + localUntouchable.length];
 		for(int i = 0; i < loadedUntouchable.length; i++)
 			untouchable[i] = loadedUntouchable[i];
 		for(int i = 0; i < localUntouchable.length; i++)
