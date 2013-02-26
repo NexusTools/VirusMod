@@ -1,0 +1,17 @@
+[
+{
+  "modid": "VirusMod",
+  "name": "Virus Mod",
+  "description": "A mod that introduces block 'viruses'.",
+  "version": "0.3.2",
+  "mcversion": "1.4.7",
+  "logoFile": "",
+  "url": "http://www.minecraftforum.net/topic/1152770-",
+  "updateUrl": "",
+  "authors": ["Steve4448"],
+  "credits": "Made by Steve4448.",
+  "parent": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
