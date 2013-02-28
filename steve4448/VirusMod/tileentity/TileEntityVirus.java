@@ -23,6 +23,9 @@ public class TileEntityVirus extends TileEntity {
 	public boolean hasHiddenHost = false;
 	private int curTicks = 0;
 
+	/**
+	 * Initialization, essentially sets the <i>virusType</i> specific settings to process with. All of this information is saved.
+	 */
 	public void init(int virusType, int replaceWith, int replaceWithMeta, float degradationLeft, int x, int y, int z, boolean dropsResource) {
 		this.virusType = virusType;
 		this.replaceWith = replaceWith;
@@ -32,10 +35,13 @@ public class TileEntityVirus extends TileEntity {
 		blockPositions.add(new int[]{x, y, z});
 	}
 
+	/**
+	 * Le logic
+	 */
 	@Override
 	public void updateEntity() {
 		if(!worldObj.isRemote)
-			if(curTicks++ >= tickRate()) {
+			if(curTicks++ >= VirusMod.virusTickRate) {
 				if(degradationLeft <= 0 && blockPositions.size() == 1 || blockPositions.size() < 1) // If the size is below 1 at this point, it's probably corrupt upon loading.
 					invalidate();
 				else {
@@ -46,6 +52,9 @@ public class TileEntityVirus extends TileEntity {
 			}
 	}
 
+	/**
+	 * Handle the VirusBlock at index <i>slot</i>
+	 */
 	public void handleBlock(int slot) {
 		if(!worldObj.isRemote) {
 			if(slot < 0 || slot >= blockPositions.size()) {
@@ -59,114 +68,12 @@ public class TileEntityVirus extends TileEntity {
 				blockPositions.remove(xyz);
 				return;
 			}
-
-			if(worldObj.blockExists(xyz[0] - 1, xyz[1], xyz[2]) && worldObj.rand.nextBoolean()) {
-				boolean flag = (replaceWith == worldObj.getBlockId(xyz[0] - 1, xyz[1], xyz[2]) && replaceWithMeta == worldObj.getBlockMetadata(xyz[0] - 1, xyz[1], xyz[2]));
-				if(!flag)
-					for(int i = 0; i < VirusMod.untouchable.length; i++)
-						if(VirusMod.untouchable[i] == worldObj.getBlockId(xyz[0] - 1, xyz[1], xyz[2]))
-							flag = true;
-
-				if(!flag) {
-					if(dropsResource)
-						dropResource(xyz[0] - 1, xyz[1], xyz[2]);
-					degradeBasedOffBlock(xyz[0] - 1, xyz[1], xyz[2]);
-					worldObj.removeBlockTileEntity(xyz[0] - 1, xyz[1], xyz[2]);
-					worldObj.setBlockAndMetadata(xyz[0] - 1, xyz[1], xyz[2], VirusMod.blockVirusStub.blockID, virusType);
-					blockPositions.add(new int[]{xyz[0] - 1, xyz[1], xyz[2]});
-					degradationLeft -= VirusMod.VIRUS_DEGRADATION;
-				}
-			}
-
-			if(worldObj.blockExists(xyz[0] + 1, xyz[1], xyz[2]) && worldObj.rand.nextBoolean()) {
-				boolean flag = (replaceWith == worldObj.getBlockId(xyz[0] + 1, xyz[1], xyz[2]) && replaceWithMeta == worldObj.getBlockMetadata(xyz[0] + 1, xyz[1], xyz[2]));
-				if(!flag)
-					for(int i = 0; i < VirusMod.untouchable.length; i++)
-						if(VirusMod.untouchable[i] == worldObj.getBlockId(xyz[0] + 1, xyz[1], xyz[2]))
-							flag = true;
-
-				if(!flag) {
-					if(dropsResource)
-						dropResource(xyz[0] + 1, xyz[1], xyz[2]);
-					degradeBasedOffBlock(xyz[0] + 1, xyz[1], xyz[2]);
-					worldObj.removeBlockTileEntity(xyz[0] + 1, xyz[1], xyz[2]);
-					worldObj.setBlockAndMetadata(xyz[0] + 1, xyz[1], xyz[2], VirusMod.blockVirusStub.blockID, virusType);
-					blockPositions.add(new int[]{xyz[0] + 1, xyz[1], xyz[2]});
-					degradationLeft -= VirusMod.VIRUS_DEGRADATION;
-				}
-			}
-
-			if(worldObj.blockExists(xyz[0], xyz[1] - 1, xyz[2]) && worldObj.rand.nextBoolean()) {
-				boolean flag = (replaceWith == worldObj.getBlockId(xyz[0], xyz[1] - 1, xyz[2]) && replaceWithMeta == worldObj.getBlockMetadata(xyz[0], xyz[1] - 1, xyz[2]));
-				if(!flag)
-					for(int i = 0; i < VirusMod.untouchable.length; i++)
-						if(VirusMod.untouchable[i] == worldObj.getBlockId(xyz[0], xyz[1] - 1, xyz[2]))
-							flag = true;
-
-				if(!flag) {
-					if(dropsResource)
-						dropResource(xyz[0], xyz[1] - 1, xyz[2]);
-					degradeBasedOffBlock(xyz[0], xyz[1] - 1, xyz[2]);
-					worldObj.removeBlockTileEntity(xyz[0], xyz[1] - 1, xyz[2]);
-					worldObj.setBlockAndMetadata(xyz[0], xyz[1] - 1, xyz[2], VirusMod.blockVirusStub.blockID, virusType);
-					blockPositions.add(new int[]{xyz[0], xyz[1] - 1, xyz[2]});
-					degradationLeft -= VirusMod.VIRUS_DEGRADATION;
-				}
-			}
-
-			if(worldObj.blockExists(xyz[0], xyz[1] + 1, xyz[2]) && worldObj.rand.nextBoolean()) {
-				boolean flag = (replaceWith == worldObj.getBlockId(xyz[0], xyz[1] + 1, xyz[2]) && replaceWithMeta == worldObj.getBlockMetadata(xyz[0], xyz[1] + 1, xyz[2]));
-				if(!flag)
-					for(int i = 0; i < VirusMod.untouchable.length; i++)
-						if(VirusMod.untouchable[i] == worldObj.getBlockId(xyz[0], xyz[1] + 1, xyz[2]))
-							flag = true;
-
-				if(!flag) {
-					if(dropsResource)
-						dropResource(xyz[0], xyz[1] + 1, xyz[2]);
-					degradeBasedOffBlock(xyz[0], xyz[1] + 1, xyz[2]);
-					worldObj.removeBlockTileEntity(xyz[0], xyz[1] + 1, xyz[2]);
-					worldObj.setBlockAndMetadata(xyz[0], xyz[1] + 1, xyz[2], VirusMod.blockVirusStub.blockID, virusType);
-					blockPositions.add(new int[]{xyz[0], xyz[1] + 1, xyz[2]});
-					degradationLeft -= VirusMod.VIRUS_DEGRADATION;
-				}
-			}
-
-			if(worldObj.blockExists(xyz[0], xyz[1], xyz[2] - 1) && worldObj.rand.nextBoolean()) {
-				boolean flag = (replaceWith == worldObj.getBlockId(xyz[0], xyz[1], xyz[2] - 1) && replaceWithMeta == worldObj.getBlockMetadata(xyz[0], xyz[1], xyz[2] - 1));
-				if(!flag)
-					for(int i = 0; i < VirusMod.untouchable.length; i++)
-						if(VirusMod.untouchable[i] == worldObj.getBlockId(xyz[0], xyz[1], xyz[2] - 1))
-							flag = true;
-
-				if(!flag) {
-					if(dropsResource)
-						dropResource(xyz[0], xyz[1], xyz[2] - 1);
-					degradeBasedOffBlock(xyz[0], xyz[1], xyz[2] - 1);
-					worldObj.removeBlockTileEntity(xyz[0], xyz[1], xyz[2] - 1);
-					worldObj.setBlockAndMetadata(xyz[0], xyz[1], xyz[2] - 1, VirusMod.blockVirusStub.blockID, virusType);
-					blockPositions.add(new int[]{xyz[0], xyz[1], xyz[2] - 1});
-					degradationLeft -= VirusMod.VIRUS_DEGRADATION;
-				}
-			}
-
-			if(worldObj.blockExists(xyz[0], xyz[1], xyz[2] + 1) && worldObj.rand.nextBoolean()) {
-				boolean flag = (replaceWith == worldObj.getBlockId(xyz[0], xyz[1], xyz[2] + 1) && replaceWithMeta == worldObj.getBlockMetadata(xyz[0], xyz[1], xyz[2] + 1));
-				if(!flag)
-					for(int i = 0; i < VirusMod.untouchable.length; i++)
-						if(VirusMod.untouchable[i] == worldObj.getBlockId(xyz[0], xyz[1], xyz[2] + 1))
-							flag = true;
-
-				if(!flag) {
-					if(dropsResource)
-						dropResource(xyz[0], xyz[1], xyz[2] + 1);
-					degradeBasedOffBlock(xyz[0], xyz[1], xyz[2] + 1);
-					worldObj.removeBlockTileEntity(xyz[0], xyz[1], xyz[2] + 1);
-					worldObj.setBlockAndMetadata(xyz[0], xyz[1], xyz[2] + 1, VirusMod.blockVirusStub.blockID, virusType);
-					blockPositions.add(new int[]{xyz[0], xyz[1], xyz[2] + 1});
-					degradationLeft -= VirusMod.VIRUS_DEGRADATION;
-				}
-			}
+			processBlock(xyz[0] + 1, xyz[1], xyz[2]);
+			processBlock(xyz[0] - 1, xyz[1], xyz[2]);
+			processBlock(xyz[0], xyz[1] + 1, xyz[2]);
+			processBlock(xyz[0], xyz[1] - 1, xyz[2]);
+			processBlock(xyz[0], xyz[1], xyz[2] + 1);
+			processBlock(xyz[0], xyz[1], xyz[2] - 1);
 			if(slot != 0) {
 				worldObj.setBlockAndMetadataWithNotify(xyz[0], xyz[1], xyz[2], replaceWith, replaceWithMeta);
 				blockPositions.remove(xyz);
@@ -178,29 +85,30 @@ public class TileEntityVirus extends TileEntity {
 			degradationLeft -= VirusMod.VIRUS_DEGRADATION; // Eventual degradation.
 		}
 	}
-
-	/**
-	 * Degrade the virus based on the block it's destroyed, if enabled. It's not the way I want to do it but seems to be the only easy way right now. (getBlockHardness(x, y, z) returns whatever block it was called from, not the location's block)
-	 */
-	public void degradeBasedOffBlock(int x, int y, int z) {
-		if(VirusMod.useBlockResistance) {
-			Block b = Block.blocksList[worldObj.getBlockId(x, y, z)];
-			if(b != null)
-				degradationLeft -= b.getBlockHardness(worldObj, x, y, z);
-		}
-	}
 	
-	public void dropResource(int x, int y, int z) {
-		Block b = Block.blocksList[worldObj.getBlockId(x, y, z)];
-		if(b != null)
-			b.dropBlockAsItem(worldObj, x, y, z, worldObj.getBlockMetadata(x, y, z), 0);
-	}
-
 	/**
-	 ** Every * server ticks, actually tick.
-	 **/
-	public int tickRate() {
-		return VirusMod.virusTickRate;
+	 * Actually process/spread to this block at <i>x</i> <i>y</i> <i>z</i>.
+	 */
+	public void processBlock(int x, int y, int z) {
+		if(worldObj.blockExists(x, y, z) && worldObj.rand.nextBoolean()) {
+			Block b = Block.blocksList[worldObj.getBlockId(x, y, z)];
+			boolean flag = (replaceWith == worldObj.getBlockId(x, y, z) && replaceWithMeta == worldObj.getBlockMetadata(x, y, z));
+			if(!flag)
+				for(int i = 0; i < VirusMod.untouchable.length; i++)
+					if(VirusMod.untouchable[i] == worldObj.getBlockId(x, y, z))
+						flag = true;
+
+			if(!flag) {
+				if(dropsResource)
+					b.dropBlockAsItem(worldObj, x, y, z, worldObj.getBlockMetadata(x, y, z), 0);
+				if(VirusMod.useBlockResistance)
+					degradationLeft -= b.getBlockHardness(worldObj, x, y, z);
+				worldObj.removeBlockTileEntity(x, y, z);
+				worldObj.setBlockAndMetadata(x, y, z, VirusMod.blockVirusStub.blockID, virusType);
+				blockPositions.add(new int[]{x, y, z});
+				degradationLeft -= VirusMod.VIRUS_DEGRADATION;
+			}
+		}
 	}
 
 	/**
