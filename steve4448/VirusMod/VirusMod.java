@@ -24,7 +24,7 @@ import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
-@Mod(modid = "VirusMod", name = "Virus Mod", version = "0.3.9")
+@Mod(modid = "VirusMod", name = "Virus Mod", version = "0.4.1")
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
 public class VirusMod {
 	public static final float VIRUS_DEGRADATION = 1;
@@ -129,48 +129,53 @@ public class VirusMod {
 			blockReplacerVirusController = new BlockReplacerVirusController(blockReplacerVirusControllerId);
 			GameRegistry.registerBlock(blockReplacerVirusController, "ReplacerVirusController");
 			LanguageRegistry.addName(blockReplacerVirusController, "Replacer Virus");
+			GameRegistry.addRecipe(new ItemStack(blockReplacerVirusController), "GCG", "RSR", "GCG", Character.valueOf('G'), new ItemStack(Item.appleGold), Character.valueOf('R'), new ItemStack(Item.beefRaw), Character.valueOf('S'), new ItemStack(Item.slimeBall), Character.valueOf('C'), new ItemStack(Item.chickenRaw));
+			GameRegistry.addRecipe(new ItemStack(blockReplacerVirusController), "GRG", "CSC", "GRG", Character.valueOf('G'), new ItemStack(Item.appleGold), Character.valueOf('R'), new ItemStack(Item.beefRaw), Character.valueOf('S'), new ItemStack(Item.slimeBall), Character.valueOf('C'), new ItemStack(Item.chickenRaw));
 		}
 		
 		if(toolVirusEnabled) {
 			blockToolVirusController = new BlockToolVirusController(blockToolVirusControllerId);
 			GameRegistry.registerBlock(blockToolVirusController, "ToolVirusController");
 			LanguageRegistry.addName(blockToolVirusController, "Tool Virus");
+			GameRegistry.addRecipe(new ItemStack(blockToolVirusController), "VCA", "RSR", "PCH", Character.valueOf('V'), new ItemStack(Item.shovelStone), Character.valueOf('A'), new ItemStack(Item.axeStone), Character.valueOf('P'), new ItemStack(Item.pickaxeStone), Character.valueOf('H'), new ItemStack(Item.hoeStone), Character.valueOf('R'), new ItemStack(Item.beefRaw), Character.valueOf('S'), new ItemStack(Item.slimeBall), Character.valueOf('C'), new ItemStack(Item.chickenRaw));
+			GameRegistry.addRecipe(new ItemStack(blockToolVirusController), "VRA", "CSC", "PRH", Character.valueOf('V'), new ItemStack(Item.shovelStone), Character.valueOf('A'), new ItemStack(Item.axeStone), Character.valueOf('P'), new ItemStack(Item.pickaxeStone), Character.valueOf('H'), new ItemStack(Item.hoeStone), Character.valueOf('R'), new ItemStack(Item.beefRaw), Character.valueOf('S'), new ItemStack(Item.slimeBall), Character.valueOf('C'), new ItemStack(Item.chickenRaw));
 		}
 
-		
-		if(eaterVirusEnabled && virusesHaveAnimations) {
-			ModTextureAnimation virusEaterAnim;
-			try {
-				virusEaterAnim = new ModTextureAnimation(TEXTURE_EATER_VIRUS, 1, "/steve4448/VirusMod/images/virussheet.png", TextureFXManager.instance().loadImageFromTexturePack(Minecraft.getMinecraft().renderEngine, "/steve4448/VirusMod/anim/eatervirusanim.png"), 2);
-				virusEaterAnim.setup();
-				virusEaterAnim.bindImage(Minecraft.getMinecraft().renderEngine);
-				TextureFXManager.instance().addAnimation(virusEaterAnim);
-			} catch(IOException e) {
-				e.printStackTrace();
+		if(virusesHaveAnimations) {
+			if(eaterVirusEnabled) {
+				ModTextureAnimation virusEaterAnim;
+				try {
+					virusEaterAnim = new ModTextureAnimation(TEXTURE_EATER_VIRUS, 1, "/steve4448/VirusMod/images/virussheet.png", TextureFXManager.instance().loadImageFromTexturePack(Minecraft.getMinecraft().renderEngine, "/steve4448/VirusMod/anim/eatervirusanim.png"), 2);
+					virusEaterAnim.setup();
+					virusEaterAnim.bindImage(Minecraft.getMinecraft().renderEngine);
+					TextureFXManager.instance().addAnimation(virusEaterAnim);
+				} catch(IOException e) {
+					e.printStackTrace();
+				}
 			}
-		}
-		
-		if(replacerVirusEnabled && virusesHaveAnimations) {
-			ModTextureAnimation virusReplacerAnim;
-			try {
-				virusReplacerAnim = new ModTextureAnimation(TEXTURE_REPLACER_VIRUS, 1, "/steve4448/VirusMod/images/virussheet.png", TextureFXManager.instance().loadImageFromTexturePack(Minecraft.getMinecraft().renderEngine, "/steve4448/VirusMod/anim/replacervirusanim.png"), 2);
-				virusReplacerAnim.setup();
-				virusReplacerAnim.bindImage(Minecraft.getMinecraft().renderEngine);
-				TextureFXManager.instance().addAnimation(virusReplacerAnim);
-			} catch(IOException e) {
-				e.printStackTrace();
+			
+			if(replacerVirusEnabled) {
+				ModTextureAnimation virusReplacerAnim;
+				try {
+					virusReplacerAnim = new ModTextureAnimation(TEXTURE_REPLACER_VIRUS, 1, "/steve4448/VirusMod/images/virussheet.png", TextureFXManager.instance().loadImageFromTexturePack(Minecraft.getMinecraft().renderEngine, "/steve4448/VirusMod/anim/replacervirusanim.png"), 2);
+					virusReplacerAnim.setup();
+					virusReplacerAnim.bindImage(Minecraft.getMinecraft().renderEngine);
+					TextureFXManager.instance().addAnimation(virusReplacerAnim);
+				} catch(IOException e) {
+					e.printStackTrace();
+				}
 			}
-		}
-		
-		if(toolVirusEnabled && virusesHaveAnimations) {
-			ModTextureAnimation virusToolAnim;
-			try {
-				virusToolAnim = new ModTextureAnimation(TEXTURE_TOOL_VIRUS, 1, "/steve4448/VirusMod/images/virussheet.png", TextureFXManager.instance().loadImageFromTexturePack(Minecraft.getMinecraft().renderEngine, "/steve4448/VirusMod/anim/toolvirusanim.png"), 2);
-				virusToolAnim.setup();
-				virusToolAnim.bindImage(Minecraft.getMinecraft().renderEngine);
-				TextureFXManager.instance().addAnimation(virusToolAnim);
-			} catch(IOException e) {
-				e.printStackTrace();
+			
+			if(toolVirusEnabled) {
+				ModTextureAnimation virusToolAnim;
+				try {
+					virusToolAnim = new ModTextureAnimation(TEXTURE_TOOL_VIRUS, 1, "/steve4448/VirusMod/images/virussheet.png", TextureFXManager.instance().loadImageFromTexturePack(Minecraft.getMinecraft().renderEngine, "/steve4448/VirusMod/anim/toolvirusanim.png"), 2);
+					virusToolAnim.setup();
+					virusToolAnim.bindImage(Minecraft.getMinecraft().renderEngine);
+					TextureFXManager.instance().addAnimation(virusToolAnim);
+				} catch(IOException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 	}
