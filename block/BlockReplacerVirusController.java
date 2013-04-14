@@ -1,9 +1,9 @@
-package steve4448.VirusMod.block;
+package VirusMod.block;
 
 import java.util.Random;
 
-import steve4448.VirusMod.VirusMod;
-import steve4448.VirusMod.tileentity.TileEntityVirus;
+import VirusMod.VirusMod;
+import VirusMod.tileentity.TileEntityVirus;
 
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -64,6 +64,6 @@ public class BlockReplacerVirusController extends BlockContainer {
 
 	@Override
 	public String getTextureFile() {
-		return "/steve4448/VirusMod/images/virussheet.png";
+		return "/VirusMod/images/virussheet.png";
 	}
 }

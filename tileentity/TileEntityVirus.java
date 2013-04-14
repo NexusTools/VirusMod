@@ -1,8 +1,8 @@
-package steve4448.VirusMod.tileentity;
+package VirusMod.tileentity;
 
 import java.util.ArrayList;
 
-import steve4448.VirusMod.VirusMod;
+import VirusMod.VirusMod;
 
 import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;

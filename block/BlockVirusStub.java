@@ -1,9 +1,9 @@
-package steve4448.VirusMod.block;
+package VirusMod.block;
 
 import java.util.List;
 import java.util.Random;
 
-import steve4448.VirusMod.VirusMod;
+import VirusMod.VirusMod;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -52,7 +52,7 @@ public class BlockVirusStub extends Block {
 
 	@Override
 	public String getTextureFile() {
-		return "/steve4448/VirusMod/images/virussheet.png";
+		return "/VirusMod/images/virussheet.png";
 	}
 
 	@SideOnly(Side.CLIENT)
