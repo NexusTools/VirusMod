@@ -99,14 +99,14 @@ public class VirusMod {
 
 	@Init
 	public void load(FMLInitializationEvent IEvent) {
-		MinecraftForgeClient.preloadTexture("/VirusMod/images/virussheet.png");
+		MinecraftForgeClient.preloadTexture("/steve4448/images/virussheet.png");
 		if(virusesHaveAnimations) {
 			if(eaterVirusEnabled)
-				MinecraftForgeClient.preloadTexture("/VirusMod/anim/eatervirusanim.png");
+				MinecraftForgeClient.preloadTexture("/steve4448/anim/eatervirusanim.png");
 			if(replacerVirusEnabled)
-				MinecraftForgeClient.preloadTexture("/VirusMod/anim/replacervirusanim.png");
+				MinecraftForgeClient.preloadTexture("/steve4448/anim/replacervirusanim.png");
 			if(toolVirusEnabled)
-				MinecraftForgeClient.preloadTexture("/VirusMod/anim/toolvirusanim.png");
+				MinecraftForgeClient.preloadTexture("/steve4448/anim/toolvirusanim.png");
 		}
 		
 		blockVirusStub = new BlockVirusStub(blockVirusStubId);
