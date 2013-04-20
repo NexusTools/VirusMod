@@ -1,13 +1,12 @@
-package steve4448.tileentity;
+package nexustools.tileentity;
 
 import java.util.ArrayList;
-
-import steve4448.VirusMod;
 
 import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
+import nexustools.VirusMod;
 import cpw.mods.fml.common.FMLLog;
 
 /**
@@ -32,7 +31,7 @@ public class TileEntityVirus extends TileEntity {
 		this.replaceWithMeta = replaceWithMeta;
 		this.degradationLeft = degradationLeft;
 		this.dropsResource = dropsResource;
-		blockPositions.add(new int[]{x, y, z});
+		blockPositions.add(new int[] { x, y, z });
 	}
 
 	/**
@@ -42,12 +41,11 @@ public class TileEntityVirus extends TileEntity {
 	public void updateEntity() {
 		if(!worldObj.isRemote)
 			if(curTicks++ >= VirusMod.virusTickRate) {
-				if(degradationLeft <= 0 && blockPositions.size() == 1 || blockPositions.size() < 1) // If the size is below 1 at this point, it's probably corrupt upon loading.
+				if(degradationLeft <= 0 && blockPositions.size() == 1 || blockPositions.size() < 1)
 					invalidate();
-				else {
+				else
 					for(int i = 0; i < VirusMod.virusIterationsPerTick; i++)
 						handleBlock(worldObj.rand.nextInt(blockPositions.size()));
-				}
 				curTicks = 0;
 			}
 	}
@@ -85,7 +83,7 @@ public class TileEntityVirus extends TileEntity {
 			degradationLeft -= VirusMod.VIRUS_DEGRADATION; // Eventual degradation.
 		}
 	}
-	
+
 	/**
 	 * Actually process/spread to this block at <i>x</i> <i>y</i> <i>z</i>.
 	 */
@@ -105,7 +103,7 @@ public class TileEntityVirus extends TileEntity {
 					degradationLeft -= b.getBlockHardness(worldObj, x, y, z);
 				worldObj.removeBlockTileEntity(x, y, z);
 				worldObj.setBlockAndMetadata(x, y, z, VirusMod.blockVirusStub.blockID, virusType);
-				blockPositions.add(new int[]{x, y, z});
+				blockPositions.add(new int[] { x, y, z });
 				degradationLeft -= VirusMod.VIRUS_DEGRADATION;
 			}
 		}
@@ -159,7 +157,7 @@ public class TileEntityVirus extends TileEntity {
 		NBTTagList coordList = compound.getTagList("BlockPositions");
 		for(int i = 0; i < coordList.tagCount(); i++) {
 			NBTTagCompound values = (NBTTagCompound) coordList.tagAt(i);
-			blockPositions.add(new int[]{values.getInteger("X"), values.getInteger("Y"), values.getInteger("Z")});
+			blockPositions.add(new int[] { values.getInteger("X"), values.getInteger("Y"), values.getInteger("Z") });
 		}
 	}
 }
