@@ -1,4 +1,4 @@
-package nexustools.block;
+package nexustools.virusmod.block;
 
 import java.util.List;
 import java.util.Random;
@@ -9,7 +9,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
-import nexustools.VirusMod;
+import nexustools.virusmod.VirusMod;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -50,7 +50,7 @@ public class BlockVirusStub extends Block {
 
 	@Override
 	public String getTextureFile() {
-		return "/nexustools/images/virussheet.png";
+		return "/nexustools/virusmod/images/virussheet.png";
 	}
 
 	@Override

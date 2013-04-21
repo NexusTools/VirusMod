@@ -1,4 +1,4 @@
-package nexustools;
+package nexustools.virusmod;
 
 import java.io.IOException;
 
@@ -9,11 +9,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.src.ModTextureAnimation;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.Configuration;
-import nexustools.block.BlockEaterVirusController;
-import nexustools.block.BlockReplacerVirusController;
-import nexustools.block.BlockToolVirusController;
-import nexustools.block.BlockVirusStub;
-import nexustools.tileentity.TileEntityVirus;
+import nexustools.virusmod.block.BlockEaterVirusController;
+import nexustools.virusmod.block.BlockReplacerVirusController;
+import nexustools.virusmod.block.BlockToolVirusController;
+import nexustools.virusmod.block.BlockVirusStub;
+import nexustools.virusmod.tileentity.TileEntityVirus;
 import cpw.mods.fml.client.TextureFXManager;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
@@ -98,14 +98,14 @@ public class VirusMod {
 	@Init
 	public void load(FMLInitializationEvent IEvent) {
 		if(FMLCommonHandler.instance().getSide().isClient()) {
-			MinecraftForgeClient.preloadTexture("/nexustools/images/virussheet.png");
+			MinecraftForgeClient.preloadTexture("/nexustools/virusmod/images/virussheet.png");
 			if(virusesHaveAnimations) {
 				if(eaterVirusEnabled)
-					MinecraftForgeClient.preloadTexture("/nexustools/anim/eatervirusanim.png");
+					MinecraftForgeClient.preloadTexture("/nexustools/virusmod/anim/eatervirusanim.png");
 				if(replacerVirusEnabled)
-					MinecraftForgeClient.preloadTexture("/nexustools/anim/replacervirusanim.png");
+					MinecraftForgeClient.preloadTexture("/nexustools/virusmod/anim/replacervirusanim.png");
 				if(toolVirusEnabled)
-					MinecraftForgeClient.preloadTexture("/nexustools/anim/toolvirusanim.png");
+					MinecraftForgeClient.preloadTexture("/nexustools/virusmod/anim/toolvirusanim.png");
 			}
 		}
 
@@ -147,7 +147,7 @@ public class VirusMod {
 				if(eaterVirusEnabled) {
 					ModTextureAnimation virusEaterAnim;
 					try {
-						virusEaterAnim = new ModTextureAnimation(TEXTURE_EATER_VIRUS, 1, "/nexustools/images/virussheet.png", TextureFXManager.instance().loadImageFromTexturePack(Minecraft.getMinecraft().renderEngine, "/nexustools/anim/eatervirusanim.png"), 2);
+						virusEaterAnim = new ModTextureAnimation(TEXTURE_EATER_VIRUS, 1, "/nexustools/virusmod/images/virussheet.png", TextureFXManager.instance().loadImageFromTexturePack(Minecraft.getMinecraft().renderEngine, "/nexustools/virusmod/anim/eatervirusanim.png"), 2);
 						virusEaterAnim.setup();
 						virusEaterAnim.bindImage(Minecraft.getMinecraft().renderEngine);
 						TextureFXManager.instance().addAnimation(virusEaterAnim);
@@ -159,7 +159,7 @@ public class VirusMod {
 				if(replacerVirusEnabled) {
 					ModTextureAnimation virusReplacerAnim;
 					try {
-						virusReplacerAnim = new ModTextureAnimation(TEXTURE_REPLACER_VIRUS, 1, "/nexustools/images/virussheet.png", TextureFXManager.instance().loadImageFromTexturePack(Minecraft.getMinecraft().renderEngine, "/nexustools/anim/replacervirusanim.png"), 2);
+						virusReplacerAnim = new ModTextureAnimation(TEXTURE_REPLACER_VIRUS, 1, "/nexustools/virusmod/images/virussheet.png", TextureFXManager.instance().loadImageFromTexturePack(Minecraft.getMinecraft().renderEngine, "/nexustools/virusmod/anim/replacervirusanim.png"), 2);
 						virusReplacerAnim.setup();
 						virusReplacerAnim.bindImage(Minecraft.getMinecraft().renderEngine);
 						TextureFXManager.instance().addAnimation(virusReplacerAnim);
@@ -171,7 +171,7 @@ public class VirusMod {
 				if(toolVirusEnabled) {
 					ModTextureAnimation virusToolAnim;
 					try {
-						virusToolAnim = new ModTextureAnimation(TEXTURE_TOOL_VIRUS, 1, "/nexustools/images/virussheet.png", TextureFXManager.instance().loadImageFromTexturePack(Minecraft.getMinecraft().renderEngine, "/nexustools/anim/toolvirusanim.png"), 2);
+						virusToolAnim = new ModTextureAnimation(TEXTURE_TOOL_VIRUS, 1, "/nexustools/virusmod/images/virussheet.png", TextureFXManager.instance().loadImageFromTexturePack(Minecraft.getMinecraft().renderEngine, "/nexustools/virusmod/anim/toolvirusanim.png"), 2);
 						virusToolAnim.setup();
 						virusToolAnim.bindImage(Minecraft.getMinecraft().renderEngine);
 						TextureFXManager.instance().addAnimation(virusToolAnim);

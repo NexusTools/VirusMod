@@ -1,4 +1,4 @@
-package nexustools.block;
+package nexustools.virusmod.block;
 
 import java.util.Random;
 
@@ -8,23 +8,23 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
-import nexustools.VirusMod;
-import nexustools.tileentity.TileEntityVirus;
+import nexustools.virusmod.VirusMod;
+import nexustools.virusmod.tileentity.TileEntityVirus;
 
 /**
  ** This block is essentially the 'host' of the virus, it creates the tile entity.
  **/
-public class BlockEaterVirusController extends BlockContainer {
+public class BlockReplacerVirusController extends BlockContainer {
 
-	public BlockEaterVirusController(int id) {
+	public BlockReplacerVirusController(int id) {
 		super(id, Material.air);
-		setBlockName("Eater Virus Stub");
+		setBlockName("Replacer Virus Stub");
 		setCreativeTab(CreativeTabs.tabBlock);
 	}
 
 	@Override
 	public int getBlockTextureFromSideAndMetadata(int par1, int meta) {
-		return meta == 0 ? VirusMod.TEXTURE_EATER_VIRUS : VirusMod.TEXTURE_HACKY_STUB;
+		return meta == 0 ? VirusMod.TEXTURE_REPLACER_VIRUS : VirusMod.TEXTURE_HACKY_STUB;
 	}
 
 	@Override
@@ -37,8 +37,8 @@ public class BlockEaterVirusController extends BlockContainer {
 		if(!(world.getBlockTileEntity(x, y, z) instanceof TileEntityVirus))
 			return;
 
-		TileEntityVirus eaterEntity = (TileEntityVirus) world.getBlockTileEntity(x, y, z);
-		eaterEntity.init(VirusMod.EATER_VIRUS, 0, 0, VirusMod.eaterVirusStrengthMin + world.rand.nextInt(VirusMod.eaterVirusStrengthMax - VirusMod.eaterVirusStrengthMin), x, y, z, false);
+		TileEntityVirus replacerEntity = (TileEntityVirus) world.getBlockTileEntity(x, y, z);
+		replacerEntity.init(VirusMod.REPLACER_VIRUS, world.getBlockId(x, y + 1, z), world.getBlockMetadata(x, y + 1, z), VirusMod.replacerVirusStrengthMin + world.rand.nextInt(VirusMod.replacerVirusStrengthMax - VirusMod.replacerVirusStrengthMin), x, y, z, false);
 	}
 
 	@Override
@@ -63,6 +63,6 @@ public class BlockEaterVirusController extends BlockContainer {
 
 	@Override
 	public String getTextureFile() {
-		return "/nexustools/images/virussheet.png";
+		return "/nexustools/virusmod/images/virussheet.png";
 	}
 }
