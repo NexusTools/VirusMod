@@ -1,4 +1,4 @@
-package nexustools.virusmod;
+package net.nexustools.virusmod;
 
 import java.io.IOException;
 
@@ -9,11 +9,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.src.ModTextureAnimation;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.Configuration;
-import nexustools.virusmod.block.BlockEaterVirusController;
-import nexustools.virusmod.block.BlockReplacerVirusController;
-import nexustools.virusmod.block.BlockToolVirusController;
-import nexustools.virusmod.block.BlockVirusStub;
-import nexustools.virusmod.tileentity.TileEntityVirus;
+import net.nexustools.virusmod.block.BlockEaterVirusController;
+import net.nexustools.virusmod.block.BlockReplacerVirusController;
+import net.nexustools.virusmod.block.BlockToolVirusController;
+import net.nexustools.virusmod.block.BlockVirusStub;
+import net.nexustools.virusmod.tileentity.TileEntityVirus;
 import cpw.mods.fml.client.TextureFXManager;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;

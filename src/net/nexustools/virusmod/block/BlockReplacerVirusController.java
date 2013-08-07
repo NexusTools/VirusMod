@@ -1,4 +1,4 @@
-package nexustools.virusmod.block;
+package net.nexustools.virusmod.block;
 
 import java.util.Random;
 
@@ -8,8 +8,8 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
-import nexustools.virusmod.VirusMod;
-import nexustools.virusmod.tileentity.TileEntityVirus;
+import net.nexustools.virusmod.VirusMod;
+import net.nexustools.virusmod.tileentity.TileEntityVirus;
 
 /**
  ** This block is essentially the 'host' of the virus, it creates the tile entity.

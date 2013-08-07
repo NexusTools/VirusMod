@@ -1,4 +1,4 @@
-package nexustools.virusmod.block;
+package net.nexustools.virusmod.block;
 
 import java.util.List;
 import java.util.Random;
@@ -9,7 +9,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
-import nexustools.virusmod.VirusMod;
+import net.nexustools.virusmod.VirusMod;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 

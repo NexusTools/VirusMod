@@ -1,4 +1,4 @@
-package nexustools.virusmod.tileentity;
+package net.nexustools.virusmod.tileentity;
 
 import java.util.ArrayList;
 
@@ -6,7 +6,7 @@ import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
-import nexustools.virusmod.VirusMod;
+import net.nexustools.virusmod.VirusMod;
 import cpw.mods.fml.common.FMLLog;
 
 /**
